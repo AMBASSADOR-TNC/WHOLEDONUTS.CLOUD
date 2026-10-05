@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emotional Tile Gallery • THE EMOTIONAL TABLE OF HEALING</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .gallery-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .gallery-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .gallery-actions {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .gallery-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .gallery-tile {
+      border-radius: 8px;
+      padding: 0.75rem;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .gallery-tile-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-tile-group {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-tile-desc {
+      font-size: 0.8rem;
+      line-height: 1.3rem;
+    }
+
+    .gallery-tile-tag {
+      font-size: 0.7rem;
+      margin-top: 0.35rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">EMOTIONAL TILE GALLERY / E‑STORE</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Tiles for THE EMOTIONAL TABLE OF HEALING</div>
+        <div class="section-body">
+          This gallery shows emotional tiles created by members of the +U Universe.
+          Some tiles are in the live table, some are in rotation, and some are
+          limited‑edition candidates chosen by the ecosystem every 2 months.
+        </div>
+
+        <div class="gallery-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="gallery-sidebar" aria-label="Gallery controls">
+            <div>
+              Browse emotional tiles, see how others name and describe their states,
+              and imagine which tiles might join THE EMOTIONAL TABLE OF HEALING.
+            </div>
+
+            <div class="gallery-actions">
+              <button class="gallery-button" type="button" id="createTileButton">
+                CREATE A NEW EMOTIONAL TILE
+              </button>
+              <button class="gallery-button" type="button" id="viewVotingButton">
+                VIEW LIMITED‑EDITION VOTING (FUTURE)
+              </button>
+            </div>
+
+            <div style="margin-top:0.75rem;">
+              In the future, this page can show:
+              <ul>
+                <li>Tiles available as prints / merch</li>
+                <li>Limited‑edition emotional sets</li>
+                <li>Voting results and upcoming candidates</li>
+              </ul>
+            </div>
+          </aside>
+
+          <!-- GALLERY GRID -->
+          <section class="gallery-grid" id="galleryGrid" aria-label="Emotional tile gallery"></section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // Sample tiles — later, this can be loaded from a backend.
+    const tiles = [
+      {
+        name: "Quiet Brave",
+        group: "Core State",
+        color: "#ffe9b3",
+        desc: "The courage to show up softly when everything feels loud.",
+        tag: "Member‑created • Candidate"
+      },
+      {
+        name: "Storm Calm",
+        group: "Protective State",
+        color: "#cfe7ff",
+        desc: "The feeling of holding steady inside chaos.",
+        tag: "Member‑created • Gallery"
+      },
+      {
+        name: "Hope‑Tired",
+        group: "Intense State",
+        color: "#ffc0c0",
+        desc: "When you’ve hoped for a long time and feel worn out, but haven’t let go.",
+        tag: "Member‑created • Limited‑edition idea"
+      },
+      {
+        name: "Identity‑Curious",
+        group: "Growth State",
+        color: "#c8ffd4",
+        desc: "Wondering who you are becoming and what matters most.",
+        tag: "Core table candidate"
+      }
+    ];
+
+    const grid = document.getElementById("galleryGrid");
+
+    tiles.forEach(tile => {
+      const el = document.createElement("div");
+      el.className = "gallery-tile";
+      el.style.backgroundColor = tile.color;
+
+      const name = document.createElement("div");
+      name.className = "gallery-tile-name";
+      name.textContent = tile.name;
+
+      const group = document.createElement("div");
+      group.className = "gallery-tile-group";
+      group.textContent = tile.group;
+
+      const desc = document.createElement("div");
+      desc.className = "gallery-tile-desc";
+      desc.textContent = tile.desc;
+
+      const tag = document.createElement("div");
+      tag.className = "gallery-tile-tag";
+      tag.textContent = tile.tag;
+
+      el.appendChild(name);
+      el.appendChild(group);
+      el.appendChild(desc);
+      el.appendChild(tag);
+
+      el.addEventListener("click", () => {
+        // Future: open detail, purchase options, or voting info.
+        console.log("Tile selected:", tile.name);
+      });
+
+      grid.appendChild(el);
+    });
+
+    // Hooks to creator and future voting page
+    document.getElementById("createTileButton").addEventListener("click", () => {
+      window.location.href = "creator.html";
+    });
+
+    document.getElementById("viewVotingButton").addEventListener("click", () => {
+      // Future: route to voting.html
+      alert("Voting system will live here in a future chamber.");
+    });
+  </script>
+</body>
+</html>
