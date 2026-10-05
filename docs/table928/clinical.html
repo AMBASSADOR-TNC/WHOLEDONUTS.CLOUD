@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emotional Table Clinical Toolkit • TABLE928</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .clinical-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .clinical-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .clinical-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .clinical-card {
+      border-radius: 10px;
+      padding: 0.75rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .clinical-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .clinical-desc {
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .clinical-meta {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    .clinical-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 0.75rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">CLINICAL TOOLKIT</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Clinical Use of THE EMOTIONAL TABLE OF HEALING</div>
+        <div class="section-body">
+          This toolkit provides clinicians with structured, safe, non‑diagnostic ways to use
+          THE EMOTIONAL TABLE OF HEALING in sessions with youth.  
+          No accounts. No identifiers. No data collection.  
+          Just emotional mapping and therapeutic support.
+        </div>
+
+        <div class="clinical-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="clinical-sidebar">
+            <div>
+              Clinical tools include:
+              <ul>
+                <li>Session openers</li>
+                <li>Emotion mapping</li>
+                <li>Non‑verbal disclosure</li>
+                <li>Stabilization prompts</li>
+                <li>Anonymous pattern review</li>
+                <li>Support + donations link</li>
+              </ul>
+            </div>
+
+            <a href="healing.html" class="clinical-button">BACK TO EMOTIONAL TABLE</a>
+            <a href="../youth-store/index.html" class="clinical-button">GALLERY</a>
+            <a href="../youth-store/identity.html" class="clinical-button">IDENTITY INVENTORY</a>
+            <a href="../youth-store/journey.html" class="clinical-button">JOURNEY MAP</a>
+            <a href="../donations/index.html" class="clinical-button">DONATE</a>
+          </aside>
+
+          <!-- TOOLKIT GRID -->
+          <section class="clinical-grid" id="clinicalGrid"></section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const tools = [
+      {
+        title: "Session Opener: Non‑Verbal Check‑In",
+        desc: "Invite youth to select a tile that reflects their current emotional state. No verbal explanation required. Useful for rapport building and safety assessment.",
+        meta: "2 minutes • Trauma‑informed"
+      },
+      {
+        title: "Emotion Mapping",
+        desc: "Use multiple tiles to map emotional complexity (e.g., 'Quiet Brave' + 'Hope‑Tired'). Helps youth express layered states without needing vocabulary.",
+        meta: "5–10 minutes • Non‑diagnostic"
+      },
+      {
+        title: "Stabilization Prompt",
+        desc: "Ask youth to choose a tile that feels grounding or protective. Use it as a stabilization anchor during dysregulation.",
+        meta: "Crisis‑safe"
+      },
+      {
+        title: "Non‑Verbal Disclosure",
+        desc: "Youth can select tiles that represent difficult emotions they cannot verbalize. Clinician interprets patterns, not identities.",
+        meta: "Shame‑reducing"
+      },
+      {
+        title: "Anonymous Pattern Review",
+        desc: "Use the analytics + patterns pages to understand broader emotional trends in a school or clinic without identifying individuals.",
+        meta: "Ethical data use"
+      },
+      {
+        title: "Support + Donations Link",
+        desc: "Clinicians and community members can support the ongoing development of the emotional tools through the Donations Hub.",
+        meta: "Community support"
+      }
+    ];
+
+    const grid = document.getElementById("clinicalGrid");
+
+    tools.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "clinical-card";
+
+      const title = document.createElement("div");
+      title.className = "clinical-title";
+      title.textContent = item.title;
+
+      const desc = document.createElement("div");
+      desc.className = "clinical-desc";
+      desc.textContent = item.desc;
+
+      const meta = document.createElement("div");
+      meta.className = "clinical-meta";
+      meta.textContent = item.meta;
+
+      card.appendChild(title);
+      card.appendChild(desc);
+      card.appendChild(meta);
+
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
