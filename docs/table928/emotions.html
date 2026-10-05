@@ -4,11 +4,31 @@
   <meta charset="UTF-8" />
   <title>Emotional Table • Table928</title>
 
-  <!-- Identity Engine Styles -->
   <link rel="stylesheet" href="../assets/css/identity.css" />
-
-  <!-- Identity Engine Logic -->
   <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .emotion-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .emotion-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      background: #fff;
+    }
+    .emotion-title {
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .emotion-body {
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -34,91 +54,146 @@
         </div>
 
         <!-- EMOTIONAL GRID -->
-        <div class="emotion-grid">
-
-          <!-- CALM -->
-          <div class="emotion-card" data-emotion="calm">
-            <div class="emotion-title">CALM</div>
-            <div class="emotion-body">
-              Calm means your mind and body feel steady.  
-              It often appears after rest, safety, or understanding.
-            </div>
-          </div>
-
-          <!-- CURIOUS -->
-          <div class="emotion-card" data-emotion="curious">
-            <div class="emotion-title">CURIOUS</div>
-            <div class="emotion-body">
-              Curious means your mind wants to explore or learn something new.
-              It is the beginning of growth and discovery.
-            </div>
-          </div>
-
-          <!-- OVERWHELMED -->
-          <div class="emotion-card" data-emotion="overwhelmed">
-            <div class="emotion-title">OVERWHELMED</div>
-            <div class="emotion-body">
-              Overwhelmed means too many thoughts or feelings at once.
-              It signals a need for pause, space, or support.
-            </div>
-          </div>
-
-          <!-- CONFUSED -->
-          <div class="emotion-card" data-emotion="confused">
-            <div class="emotion-title">CONFUSED</div>
-            <div class="emotion-body">
-              Confused means something doesn’t make sense yet.
-              It is the first step toward clarity.
-            </div>
-          </div>
-
-          <!-- HOPEFUL -->
-          <div class="emotion-card" data-emotion="hopeful">
-            <div class="emotion-title">HOPEFUL</div>
-            <div class="emotion-body">
-              Hopeful means you can see a good future or a positive change coming.
-              It is the spark that moves you forward.
-            </div>
-          </div>
-
-          <!-- SAD -->
-          <div class="emotion-card" data-emotion="sad">
-            <div class="emotion-title">SAD</div>
-            <div class="emotion-body">
-              Sad means something mattered to you and changed.
-              It is a sign of care, connection, and healing.
-            </div>
-          </div>
-
-          <!-- ANXIOUS -->
-          <div class="emotion-card" data-emotion="anxious">
-            <div class="emotion-title">ANXIOUS</div>
-            <div class="emotion-body">
-              Anxious means your mind is imagining danger or uncertainty.
-              It signals a need for grounding and reassurance.
-            </div>
-          </div>
-
-          <!-- EXCITED -->
-          <div class="emotion-card" data-emotion="excited">
-            <div class="emotion-title">EXCITED</div>
-            <div class="emotion-body">
-              Excited means your energy is rising toward something good.
-              It is the emotion of action and momentum.
-            </div>
-          </div>
-
-        </div>
+        <div id="emotionGrid" class="emotion-grid"></div>
 
         <div class="section-title">WHAT TO DO NEXT</div>
         <div class="section-body">
           Choose an emotion above to begin your path toward healing, clarity, and direction.
-          Each emotion leads to a deeper explanation and a simple next step.
         </div>
 
       </div>
     </main>
 
   </div>
+
+  <script>
+    const emotions = [
+      // CORE SET (you can edit names/descriptions anytime)
+      { name: "Calm", desc: "Your mind and body feel steady; often after rest, safety, or understanding." },
+      { name: "Curious", desc: "You want to explore or learn something new; the beginning of growth." },
+      { name: "Overwhelmed", desc: "Too many thoughts or feelings at once; signals a need for pause or support." },
+      { name: "Confused", desc: "Something doesn’t make sense yet; first step toward clarity." },
+      { name: "Hopeful", desc: "You can see a good future or positive change coming; spark of momentum." },
+      { name: "Sad", desc: "Something mattered and changed; sign of care, connection, and healing." },
+      { name: "Anxious", desc: "Your mind imagines danger or uncertainty; needs grounding and reassurance." },
+      { name: "Excited", desc: "Your energy rises toward something good; emotion of action and movement." },
+
+      // EXPANSION SET (add as many as you want—up to 118+)
+      { name: "Lonely", desc: "You feel separate or unseen; signals a need for connection or being heard." },
+      { name: "Embarrassed", desc: "You feel exposed or judged; often tied to mistakes or attention." },
+      { name: "Angry", desc: "You feel something is unfair or wrong; energy that needs safe direction." },
+      { name: "Frustrated", desc: "You feel blocked from what you want; calls for adjustment or patience." },
+      { name: "Grateful", desc: "You notice something good and appreciate it; strengthens relationships." },
+      { name: "Proud", desc: "You feel good about what you did or who you’re becoming." },
+      { name: "Guilty", desc: "You feel you did something wrong; invites repair and learning." },
+      { name: "Ashamed", desc: "You feel something is wrong with you; needs compassion and truth." },
+      { name: "Jealous", desc: "You want what someone else has; can reveal your own desires." },
+      { name: "Envious", desc: "You compare yourself and feel less; invites self‑worth and perspective." },
+      { name: "Bored", desc: "Nothing feels engaging; signals a need for challenge or creativity." },
+      { name: "Tired", desc: "Your body or mind needs rest; not weakness, just a limit." },
+      { name: "Stressed", desc: "Too much pressure or expectation; needs boundaries and support." },
+      { name: "Relieved", desc: "Something hard is over or safer; your system is exhaling." },
+      { name: "Inspired", desc: "You see something that makes you want to create or act." },
+      { name: "Motivated", desc: "You feel ready to move toward a goal; energy with direction." },
+      { name: "Disappointed", desc: "Reality didn’t match your hope; invites new expectations." },
+      { name: "Rejected", desc: "You feel pushed away or unwanted; needs care and perspective." },
+      { name: "Included", desc: "You feel part of something; belonging strengthens identity." },
+      { name: "Secure", desc: "You feel safe and supported; foundation for growth." },
+      { name: "Insecure", desc: "You doubt your worth or place; needs truth and reassurance." },
+      { name: "Confident", desc: "You trust your ability to handle what’s ahead." },
+      { name: "Nervous", desc: "You feel shaky before something important; often near growth." },
+      { name: "Peaceful", desc: "Your mind and body feel quiet and okay, even if life isn’t perfect." },
+      { name: "Restless", desc: "You feel like you need to move or change something." },
+      { name: "Lost", desc: "You don’t know what to do next; invites guidance and small steps." },
+      { name: "Found", desc: "You feel seen, understood, or back on track." },
+      { name: "Hurt", desc: "Something or someone impacted you deeply; needs care and validation." },
+      { name: "Supported", desc: "You feel backed up by someone or something; you’re not alone." },
+      { name: "Ignored", desc: "You feel unseen or unheard; your voice matters." },
+      { name: "Validated", desc: "Someone understands and accepts your experience as real." },
+      { name: "Conflicted", desc: "Two parts of you want different things; needs sorting and patience." },
+      { name: "Determined", desc: "You feel committed to keep going, even when it’s hard." },
+      { name: "Hopeless", desc: "You can’t see a way forward yet; needs light, support, and time." },
+      { name: "Optimistic", desc: "You expect things can improve; lens of possibility." },
+      { name: "Pessimistic", desc: "You expect things to go wrong; often a protection strategy." },
+      { name: "Protective", desc: "You want to guard yourself or others from harm." },
+      { name: "Playful", desc: "You feel free to joke, explore, and have fun." },
+      { name: "Serious", desc: "You feel focused and aware of the weight of something." },
+      { name: "Connected", desc: "You feel close to someone or something meaningful." },
+      { name: "Detached", desc: "You feel distant or numb; often a way to cope." },
+      { name: "Numb", desc: "You don’t feel much at all; your system may be protecting you." },
+      { name: "Vulnerable", desc: "You feel open and exposed; also where real connection happens." },
+      { name: "Brave", desc: "You act even while feeling fear or uncertainty." },
+      { name: "Scared", desc: "You sense danger; needs safety, truth, and support." },
+      { name: "Content", desc: "You feel okay with what you have right now." },
+      { name: "Unsatisfied", desc: "You want more or different; can lead to growth or frustration." },
+      { name: "Creative", desc: "You feel ideas and expression wanting to come out." },
+      { name: "Blocked", desc: "You feel stuck creatively or emotionally; needs space or change." },
+      { name: "Trusting", desc: "You believe someone or something is safe and reliable." },
+      { name: "Distrustful", desc: "You doubt safety or honesty; often from past hurt." },
+      { name: "Regretful", desc: "You wish you had chosen differently; invites learning and repair." },
+      { name: "Hope‑tired", desc: "You’ve hoped for a long time and feel worn out." },
+      { name: "Surprised", desc: "Something unexpected happened; can be good or hard." },
+      { name: "Shocked", desc: "Something intense and sudden impacted you deeply." },
+      { name: "Joyful", desc: "You feel deep happiness and aliveness." },
+      { name: "Bittersweet", desc: "You feel happy and sad at the same time." },
+      { name: "Protectively Angry", desc: "You feel anger because you care and want safety." },
+      { name: "Misunderstood", desc: "You feel people don’t get your experience or intent." },
+      { name: "Seen", desc: "You feel truly noticed and understood." },
+      { name: "Overlooked", desc: "You feel passed over or skipped; your presence matters." },
+      { name: "Encouraged", desc: "You feel lifted up by words or actions from others." },
+      { name: "Discouraged", desc: "You feel weighed down or doubting your ability." },
+      { name: "Resentful", desc: "You hold onto anger about something that felt unfair." },
+      { name: "Reluctant", desc: "You feel pulled toward something but hesitant to act." },
+      { name: "Eager", desc: "You feel ready and wanting to move forward." },
+      { name: "Overconfident", desc: "You may underestimate risk; invites balance." },
+      { name: "Underconfident", desc: "You underestimate your ability; invites truth and support." },
+      { name: "Homesick", desc: "You miss a place, time, or feeling of home." },
+      { name: "Belonging", desc: "You feel like you fit and are accepted." },
+      { name: "Out of Place", desc: "You feel like you don’t fit the environment or group." },
+      { name: "Focused", desc: "Your attention is steady on one thing." },
+      { name: "Distracted", desc: "Your attention keeps jumping; needs refocus or rest." },
+      { name: "Impatient", desc: "You want something to happen faster; invites pacing." },
+      { name: "Patient", desc: "You’re willing to wait and trust the process." },
+      { name: "Competitive", desc: "You want to win or be the best; can motivate or stress." },
+      { name: "Cooperative", desc: "You want to work together and share success." },
+      { name: "Protectively Quiet", desc: "You stay silent to feel safe; your voice still matters." },
+      { name: "Expressive", desc: "You share your thoughts and feelings openly." },
+      { name: "Overexposed", desc: "You feel like you shared too much; needs safety and boundaries." },
+      { name: "Grounded", desc: "You feel steady, present, and connected to reality." },
+      { name: "Spaced Out", desc: "You feel far away in your mind; often from stress or overload." },
+      { name: "Curious About Self", desc: "You want to understand who you are becoming." },
+      { name: "Curious About Others", desc: "You want to understand people around you." },
+      { name: "Protectively Closed", desc: "You keep your heart guarded; often from past hurt." },
+      { name: "Open‑hearted", desc: "You feel willing to connect deeply, even with risk." },
+      { name: "Future‑focused", desc: "Your mind is on what’s ahead; can inspire or worry." },
+      { name: "Past‑stuck", desc: "Your mind keeps replaying what already happened." },
+      { name: "Present‑aware", desc: "You notice what’s happening right now." },
+      { name: "Identity‑curious", desc: "You’re wondering who you are and who you’ll be." },
+      { name: "Identity‑tired", desc: "You feel worn out from trying to figure yourself out." },
+      { name: "Identity‑proud", desc: "You feel good about who you’re becoming." },
+      { name: "Identity‑uncertain", desc: "You’re not sure yet; that’s okay—this is the path." }
+      // You can keep adding until you hit your full 118 set.
+    ];
+
+    const grid = document.getElementById("emotionGrid");
+
+    emotions.forEach(emotion => {
+      const card = document.createElement("div");
+      card.className = "emotion-card";
+      card.dataset.emotion = emotion.name.toLowerCase();
+
+      const title = document.createElement("div");
+      title.className = "emotion-title";
+      title.textContent = emotion.name;
+
+      const body = document.createElement("div");
+      body.className = "emotion-body";
+      body.textContent = emotion.desc;
+
+      card.appendChild(title);
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+  </script>
 </body>
 </html>
