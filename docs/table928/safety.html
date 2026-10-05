@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emotional Table Safety Engine • TABLE928</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .safety-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .safety-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .safety-card {
+      border-radius: 10px;
+      padding: 0.75rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .safety-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .safety-desc {
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .safety-meta {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    .safety-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 0.75rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">SAFETY ENGINE</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Safety Layer for THE EMOTIONAL TABLE OF HEALING</div>
+        <div class="section-body">
+          This page defines how the Emotional Table is used safely with youth:
+          clear boundaries, crisis escalation rules, and non‑diagnostic use.
+        </div>
+
+        <div class="safety-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="safety-sidebar">
+            <div>
+              Safety engine covers:
+              <ul>
+                <li>Non‑diagnostic use</li>
+                <li>No accounts / no IDs</li>
+                <li>Session boundaries</li>
+                <li>Crisis escalation rules</li>
+                <li>Institutional safeguards</li>
+              </ul>
+            </div>
+
+            <a href="healing.html" class="safety-button">BACK TO EMOTIONAL TABLE</a>
+            <a href="educators.html" class="safety-button">EDUCATOR TOOLKIT</a>
+            <a href="clinical.html" class="safety-button">CLINICAL TOOLKIT</a>
+            <a href="admin.html" class="safety-button">ADMIN CONSOLE</a>
+            <a href="../donations/index.html" class="safety-button">DONATE</a>
+          </aside>
+
+          <!-- SAFETY GRID -->
+          <section class="safety-grid" id="safetyGrid"></section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const rules = [
+      {
+        title: "Non‑Diagnostic Use Only",
+        desc: "The Emotional Table is not a diagnostic tool. It is used for emotional expression, reflection, and support—not for labeling, diagnosing, or assigning conditions.",
+        meta: "Core rule"
+      },
+      {
+        title: "No Accounts, No IDs",
+        desc: "Youth do not log in, create accounts, or attach names to emotional interactions. All use is anonymous and session‑based.",
+        meta: "Privacy + safety"
+      },
+      {
+        title: "Session Boundaries",
+        desc: "Educators and clinicians set clear time limits and purposes for using the table (check‑in, reflection, stabilization), and do not pressure youth to explain every choice.",
+        meta: "Trauma‑informed"
+      },
+      {
+        title: "Crisis Escalation",
+        desc: "If a youth’s choices or behavior suggest immediate risk, staff follow existing crisis protocols (school, clinic, community) rather than relying on the table alone.",
+        meta: "Crisis‑safe"
+      },
+      {
+        title: "Institutional Safeguards",
+        desc: "Institutions decide which features are enabled (patterns, analytics, exports) via the Admin Console, with a bias toward minimal data and maximum safety.",
+        meta: "Governance"
+      },
+      {
+        title: "Respectful Use",
+        desc: "The table is never used to shame, mock, expose, or rank youth. Emotions are treated as valid signals, not performance metrics.",
+        meta: "Ethical use"
+      }
+    ];
+
+    const grid = document.getElementById("safetyGrid");
+
+    rules.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "safety-card";
+
+      const title = document.createElement("div");
+      title.className = "safety-title";
+      title.textContent = item.title;
+
+      const desc = document.createElement("div");
+      desc.className = "safety-desc";
+      desc.textContent = item.desc;
+
+      const meta = document.createElement("div");
+      meta.className = "safety-meta";
+      meta.textContent = item.meta;
+
+      card.appendChild(title);
+      card.appendChild(desc);
+      card.appendChild(meta);
+
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
