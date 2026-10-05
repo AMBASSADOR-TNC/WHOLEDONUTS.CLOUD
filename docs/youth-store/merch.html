@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Merch Drop Engine • THE EMOTIONAL TABLE OF HEALING</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .merch-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .merch-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .merch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .merch-card {
+      border-radius: 8px;
+      padding: 0.75rem;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .merch-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .merch-name {
+      font-weight: 600;
+    }
+
+    .merch-tag {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .merch-body {
+      font-size: 0.8rem;
+      line-height: 1.3rem;
+      margin-top: 0.35rem;
+    }
+
+    .merch-footer {
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .merch-color-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1px solid #000;
+    }
+
+    .merch-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">MERCH DROP ENGINE</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Limited‑edition emotional merch drops</div>
+        <div class="section-body">
+          Every 2 months, one emotional tile becomes a limited‑edition drop — prints, shirts, stickers,
+          or other artifacts of THE EMOTIONAL TABLE OF HEALING.  
+          This page is the engine that displays those drops and connects them to the youth‑store ecosystem.
+        </div>
+
+        <div class="merch-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="merch-sidebar">
+            <div>
+              Future features:
+              <ul>
+                <li>Live inventory and drop timers</li>
+                <li>Pre‑order windows tied to voting results</li>
+                <li>Bundles based on emotion groups (core/intense/protective/growth)</li>
+              </ul>
+            </div>
+
+            <button class="merch-button" type="button" id="backToGallery">
+              BACK TO GALLERY / E‑STORE
+            </button>
+
+            <button class="merch-button" type="button" id="viewArchive">
+              VIEW LIMITED‑EDITION ARCHIVE
+            </button>
+          </aside>
+
+          <!-- MERCH GRID -->
+          <section class="merch-grid" id="merchGrid" aria-label="Merch drops"></section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // Sample merch drops — future: loaded from backend
+    const drops = [
+      {
+        name: "Quiet Brave — Print Set",
+        tile: "Quiet Brave",
+        group: "Core State",
+        color: "#ffe9b3",
+        desc: "A 3‑print set capturing the courage to show up softly when everything feels loud.",
+        window: "Drop window: Sept–Oct 2026"
+      },
+      {
+        name: "Hope‑Tired — Hoodie",
+        tile: "Hope‑Tired",
+        group: "Intense State",
+        color: "#ffc0c0",
+        desc: "A hoodie for those who have hoped for a long time and feel worn out, but haven’t let go.",
+        window: "Drop window: Nov–Dec 2026"
+      },
+      {
+        name: "Storm Calm — Sticker Pack",
+        tile: "Storm Calm",
+        group: "Protective State",
+        color: "#cfe7ff",
+        desc: "Sticker pack for the feeling of holding steady inside chaos.",
+        window: "Drop window: Jan–Feb 2027"
+      }
+    ];
+
+    const grid = document.getElementById("merchGrid");
+
+    drops.forEach(drop => {
+      const card = document.createElement("div");
+      card.className = "merch-card";
+
+      const header = document.createElement("div");
+      header.className = "merch-header";
+
+      const name = document.createElement("div");
+      name.className = "merch-name";
+      name.textContent = drop.name;
+
+      const tag = document.createElement("div");
+      tag.className = "merch-tag";
+      tag.textContent = `${drop.tile} • ${drop.group}`;
+
+      header.appendChild(name);
+      header.appendChild(tag);
+
+      const body = document.createElement("div");
+      body.className = "merch-body";
+      body.textContent = drop.desc;
+
+      const footer = document.createElement("div");
+      footer.className = "merch-footer";
+
+      const window = document.createElement("div");
+      window.textContent = drop.window;
+
+      const swatch = document.createElement("div");
+      swatch.className = "merch-color-swatch";
+      swatch.style.backgroundColor = drop.color;
+
+      footer.appendChild(window);
+      footer.appendChild(swatch);
+
+      card.appendChild(header);
+      card.appendChild(body);
+      card.appendChild(footer);
+
+      card.addEventListener("click", () => {
+        // Future: open product detail / checkout
+        console.log("Merch drop selected:", drop.name);
+      });
+
+      grid.appendChild(card);
+    });
+
+    document.getElementById("backToGallery").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+
+    document.getElementById("viewArchive").addEventListener("click", () => {
+      window.location.href = "archive.html";
+    });
+  </script>
+</body>
+</html>
