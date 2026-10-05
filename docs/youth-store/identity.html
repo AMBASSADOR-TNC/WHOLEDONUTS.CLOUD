@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Youth Identity Inventory • THE EMOTIONAL TABLE OF HEALING</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .inventory-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .inventory-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .inventory-card {
+      border-radius: 10px;
+      padding: 0.75rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .inventory-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .inventory-group {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+
+    .inventory-desc {
+      font-size: 0.8rem;
+      line-height: 1.3rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .inventory-date {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    .inventory-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 0.75rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">YOUTH IDENTITY INVENTORY</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Your Anonymous Identity Timeline</div>
+        <div class="section-body">
+          This inventory shows the emotional tiles you’ve interacted with — created, tapped,
+          viewed, voted for, or connected with.  
+          No names. No accounts. No exposure.  
+          Just your emotional journey, privately stored and safely expressed.
+        </div>
+
+        <div class="inventory-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="inventory-sidebar">
+            <div>
+              Your identity inventory includes:
+              <ul>
+                <li>Tiles you created</li>
+                <li>Tiles you tapped in the table</li>
+                <li>Tiles you viewed in the gallery</li>
+                <li>Tiles you voted for</li>
+                <li>Tiles you connected with emotionally</li>
+              </ul>
+            </div>
+
+            <a href="index.html" class="inventory-button">BACK TO GALLERY</a>
+            <a href="creator.html" class="inventory-button">CREATE TILE</a>
+            <a href="patterns.html" class="inventory-button">VIEW PATTERNS</a>
+            <a href="voting.html" class="inventory-button">VOTING</a>
+            <a href="archive.html" class="inventory-button">ARCHIVE</a>
+          </aside>
+
+          <!-- INVENTORY GRID -->
+          <section class="inventory-grid" id="inventoryGrid"></section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // Sample identity timeline — future: loaded from backend or local anonymous store
+    const timeline = [
+      {
+        name: "Quiet Brave",
+        group: "Core State",
+        color: "#ffe9b3",
+        desc: "You tapped this emotion during a quiet moment.",
+        date: "Sept 2026 • Table Interaction"
+      },
+      {
+        name: "Storm Calm",
+        group: "Protective State",
+        color: "#cfe7ff",
+        desc: "You viewed this tile in the gallery.",
+        date: "Sept 2026 • Gallery View"
+      },
+      {
+        name: "Hope‑Tired",
+        group: "Intense State",
+        color: "#ffc0c0",
+        desc: "You voted for this tile in the limited‑edition cycle.",
+        date: "Aug 2026 • Voting"
+      },
+      {
+        name: "Identity‑Curious",
+        group: "Growth State",
+        color: "#c8ffd4",
+        desc: "You created a tile inspired by this emotion.",
+        date: "July 2026 • Creator"
+      }
+    ];
+
+    const grid = document.getElementById("inventoryGrid");
+
+    timeline.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "inventory-card";
+
+      const name = document.createElement("div");
+      name.className = "inventory-name";
+      name.textContent = item.name;
+
+      const group = document.createElement("div");
+      group.className = "inventory-group";
+      group.textContent = item.group;
+
+      const desc = document.createElement("div");
+      desc.className = "inventory-desc";
+      desc.textContent = item.desc;
+
+      const date = document.createElement("div");
+      date.className = "inventory-date";
+      date.textContent = item.date;
+
+      card.style.backgroundColor = item.color;
+
+      card.appendChild(name);
+      card.appendChild(group);
+      card.appendChild(desc);
+      card.appendChild(date);
+
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
