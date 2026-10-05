@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emotional Tile Detail • THE EMOTIONAL TABLE OF HEALING</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .tile-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .tile-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .tile-card {
+      border-radius: 12px;
+      padding: 1rem;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .tile-name {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .tile-group {
+      font-size: 0.85rem;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .tile-desc {
+      font-size: 0.9rem;
+      line-height: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tile-meta {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 0.5rem;
+    }
+
+    .tile-actions {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tile-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">EMOTIONAL TILE DETAIL</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Emotional Tile Information</div>
+        <div class="section-body">
+          This page shows the full detail of an emotional tile — its meaning, group, color,
+          and how it connects to THE EMOTIONAL TABLE OF HEALING and the youth‑store ecosystem.
+        </div>
+
+        <div class="tile-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="tile-sidebar">
+            <div>
+              Tile actions:
+              <ul>
+                <li>View in Gallery</li>
+                <li>Vote for limited‑edition release</li>
+                <li>See past winners</li>
+                <li>Explore anonymous emotional patterns</li>
+                <li>View merch drops based on this tile</li>
+              </ul>
+            </div>
+
+            <a href="index.html" class="tile-button">BACK TO GALLERY</a>
+            <a href="voting.html" class="tile-button">VOTING</a>
+            <a href="archive.html" class="tile-button">ARCHIVE</a>
+            <a href="patterns.html" class="tile-button">PATTERNS</a>
+            <a href="merch.html" class="tile-button">MERCH DROPS</a>
+          </aside>
+
+          <!-- TILE DETAIL -->
+          <section id="tileDetail"></section>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // Sample tile data — future: load from backend
+    const tiles = {
+      "Quiet Brave": {
+        name: "Quiet Brave",
+        group: "Core State",
+        color: "#ffe9b3",
+        desc: "The courage to show up softly when everything feels loud.",
+        created: "Member‑created • Candidate"
+      },
+      "Storm Calm": {
+        name: "Storm Calm",
+        group: "Protective State",
+        color: "#cfe7ff",
+        desc: "The feeling of holding steady inside chaos.",
+        created: "Member‑created • Gallery"
+      },
+      "Hope‑Tired": {
+        name: "Hope‑Tired",
+        group: "Intense State",
+        color: "#ffc0c0",
+        desc: "When you’ve hoped for a long time and feel worn out, but haven’t let go.",
+        created: "Member‑created • Limited‑edition idea"
+      },
+      "Identity‑Curious": {
+        name: "Identity‑Curious",
+        group: "Growth State",
+        color: "#c8ffd4",
+        desc: "Wondering who you are becoming and what matters most.",
+        created: "Core table candidate"
+      }
+    };
+
+    // Read tile name from URL
+    const params = new URLSearchParams(window.location.search);
+    const tileName = params.get("name");
+
+    const detail = document.getElementById("tileDetail");
+
+    if (!tileName || !tiles[tileName]) {
+      detail.innerHTML = "<div>Tile not found.</div>";
+    } else {
+      const tile = tiles[tileName];
+
+      detail.innerHTML = `
+        <div class="tile-card" style="background:${tile.color}">
+          <div class="tile-name">${tile.name}</div>
+          <div class="tile-group">${tile.group}</div>
+          <div class="tile-desc">${tile.desc}</div>
+          <div class="tile-meta">${tile.created}</div>
+
+          <div class="tile-actions">
+            <a href="voting.html" class="tile-button">VOTE FOR THIS TILE</a>
+            <a href="merch.html" class="tile-button">VIEW MERCH</a>
+            <a href="patterns.html" class="tile-button">VIEW PATTERNS</a>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
