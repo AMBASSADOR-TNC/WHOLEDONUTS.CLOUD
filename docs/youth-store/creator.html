@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Emotional Tile • THE EMOTIONAL TABLE OF HEALING</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .creator-layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 340px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .creator-form {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+    }
+
+    .creator-field {
+      margin-bottom: 0.75rem;
+    }
+
+    .creator-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .creator-input,
+    .creator-select,
+    .creator-textarea {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 0.35rem 0.45rem;
+      border-radius: 4px;
+      border: 1px solid #999;
+    }
+
+    .creator-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .creator-helper {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: 0.15rem;
+    }
+
+    .creator-actions {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .creator-button {
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .creator-button:focus-visible {
+      outline: 2px solid #000;
+    }
+
+    .tile-preview-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .tile-preview {
+      border-radius: 8px;
+      padding: 0.75rem;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .tile-preview-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .tile-preview-group {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+
+    .tile-preview-desc {
+      font-size: 0.8rem;
+      line-height: 1.3rem;
+    }
+
+    .tile-preview-note {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">EMOTIONAL TILE CREATOR</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Create your tile for THE EMOTIONAL TABLE OF HEALING</div>
+        <div class="section-body">
+          Here you design one emotional “element” that could live inside THE EMOTIONAL TABLE OF HEALING
+          and the youth gallery/e‑store.  
+          No names, no faces—just your emotion, your meaning, and your art.
+        </div>
+
+        <div class="creator-layout" aria-label="Emotional tile creator layout">
+          <!-- FORM -->
+          <section class="creator-form" aria-label="Emotional tile form">
+            <div class="creator-field">
+              <label for="tileName" class="creator-label">Emotion name</label>
+              <input id="tileName" class="creator-input" type="text"
+                     placeholder="e.g., Quiet Brave, Storm Calm" />
+              <div class="creator-helper">
+                This can be a known emotion or a new one you name yourself.
+              </div>
+            </div>
+
+            <div class="creator-field">
+              <label for="tileGroup" class="creator-label">Group</label>
+              <select id="tileGroup" class="creator-select">
+                <option value="core">Core state</option>
+                <option value="intense">Intense state</option>
+                <option value="protective">Protective state</option>
+                <option value="growth">Growth state</option>
+              </select>
+              <div class="creator-helper">
+                Choose where this emotion belongs in the emotional table.
+              </div>
+            </div>
+
+            <div class="creator-field">
+              <label for="tileColor" class="creator-label">Tile color</label>
+              <input id="tileColor" class="creator-input" type="color" value="#ffe9b3" />
+              <div class="creator-helper">
+                Pick a color that feels like this emotion.
+              </div>
+            </div>
+
+            <div class="creator-field">
+              <label for="tileDesc" class="creator-label">What this emotion means</label>
+              <textarea id="tileDesc" class="creator-textarea"
+                        placeholder="Describe what this emotion feels like, when it shows up, and what it needs."></textarea>
+            </div>
+
+            <div class="creator-actions">
+              <button type="button" class="creator-button" id="previewButton">
+                PREVIEW TILE
+              </button>
+              <button type="button" class="creator-button" id="saveButton">
+                SAVE (FUTURE GALLERY / E‑STORE)
+              </button>
+            </div>
+
+            <div class="creator-helper">
+              Saving is conceptual for now—later this button can send your tile to a gallery
+              where the ecosystem can vote on limited editions every 2 months.
+            </div>
+          </section>
+
+          <!-- PREVIEW -->
+          <section class="tile-preview-wrapper" aria-label="Emotional tile preview">
+            <div class="tile-preview" id="tilePreview">
+              <div class="tile-preview-name" id="previewName">
+                Your emotional tile will appear here.
+              </div>
+              <div class="tile-preview-group" id="previewGroup">
+                Choose a group, color, and description to see it.
+              </div>
+              <div class="tile-preview-desc" id="previewDesc"></div>
+            </div>
+
+            <div class="tile-preview-note">
+              In the future, tiles created here can be anonymously logged, displayed in the gallery,
+              and voted on by the whole ecosystem for limited‑edition releases.
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const nameInput = document.getElementById("tileName");
+    const groupSelect = document.getElementById("tileGroup");
+    const colorInput = document.getElementById("tileColor");
+    const descInput = document.getElementById("tileDesc");
+
+    const previewButton = document.getElementById("previewButton");
+    const saveButton = document.getElementById("saveButton");
+
+    const preview = document.getElementById("tilePreview");
+    const previewName = document.getElementById("previewName");
+    const previewGroup = document.getElementById("previewGroup");
+    const previewDesc = document.getElementById("previewDesc");
+
+    function groupLabel(group) {
+      switch (group) {
+        case "core": return "Core state";
+        case "intense": return "Intense state";
+        case "protective": return "Protective state";
+        case "growth": return "Growth state";
+        default: return "Emotion group";
+      }
+    }
+
+    previewButton.addEventListener("click", () => {
+      const name = nameInput.value.trim() || "Unnamed emotion";
+      const group = groupSelect.value;
+      const color = colorInput.value || "#ffe9b3";
+      const desc = descInput.value.trim() || "Describe this emotion to bring it to life.";
+
+      preview.style.backgroundColor = color;
+      previewName.textContent = name;
+      previewGroup.textContent = groupLabel(group);
+      previewDesc.textContent = desc;
+    });
+
+    saveButton.addEventListener("click", () => {
+      const payload = {
+        name: nameInput.value.trim(),
+        group: groupSelect.value,
+        color: colorInput.value,
+        desc: descInput.value.trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      // Placeholder for future backend / gallery integration:
+      console.log("Emotional tile saved (conceptual):", payload);
+
+      alert("Your emotional tile has been created.\nIn the future, this can be sent to the gallery/e‑store for voting.");
+    });
+  </script>
+</body>
+</html>
