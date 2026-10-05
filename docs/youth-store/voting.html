@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emotional Tile Voting • THE EMOTIONAL TABLE OF HEALING</title>
+
+  <link rel="stylesheet" href="../assets/css/identity.css" />
+  <script src="../assets/js/identity-engine.js" defer></script>
+
+  <style>
+    .voting-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: 1.5rem;
+    }
+
+    .voting-sidebar {
+      border-right: 1px solid #ccc;
+      padding-right: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.3rem;
+    }
+
+    .voting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .vote-tile {
+      border-radius: 8px;
+      padding: 0.75rem;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s ease;
+    }
+
+    .vote-tile:hover {
+      border-color: #000;
+    }
+
+    .vote-tile-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .vote-tile-group {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 0.25rem;
+    }
+
+    .vote-tile-desc {
+      font-size: 0.8rem;
+      line-height: 1.3rem;
+    }
+
+    .vote-button {
+      margin-top: 0.75rem;
+      border-radius: 4px;
+      border: 1px solid #000;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .vote-confirm {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #008000;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <header class="identity-header">
+      <div class="identity-inner">
+        <div class="title-crayon">TABLE928</div>
+        <div class="title-bold">LIMITED‑EDITION EMOTIONAL TILE VOTING</div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="content-inner">
+
+        <div class="section-title">Vote for the next limited‑edition emotional tile</div>
+        <div class="section-body">
+          Every 2 months, the +U Universe selects one emotional tile to become a limited‑edition release.
+          These tiles can appear in THE EMOTIONAL TABLE OF HEALING, the gallery, and future merch drops.
+        </div>
+
+        <div class="voting-layout">
+
+          <!-- SIDEBAR -->
+          <aside class="voting-sidebar">
+            <div>
+              Choose the tile that feels most meaningful, powerful, or important right now.
+              Your vote is anonymous and helps shape the emotional future of the ecosystem.
+            </div>
+
+            <button class="vote-button" id="backToGallery">
+              BACK TO GALLERY / E‑STORE
+            </button>
+
+            <div style="margin-top:0.75rem;">
+              Future features:
+              <ul>
+                <li>Live vote counts</li>
+                <li>Past winners archive</li>
+                <li>Upcoming candidate previews</li>
+              </ul>
+            </div>
+          </aside>
+
+          <!-- VOTING GRID -->
+          <section class="voting-grid" id="votingGrid"></section>
+
+        </div>
+
+        <div id="voteConfirm" class="vote-confirm">
+          Your vote has been recorded. Thank you for shaping the emotional future.
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    // Candidate tiles for voting — later loaded from backend
+    const candidates = [
+      {
+        name: "Quiet Brave",
+        group: "Core State",
+        color: "#ffe9b3",
+        desc: "The courage to show up softly when everything feels loud."
+      },
+      {
+        name: "Hope‑Tired",
+        group: "Intense State",
+        color: "#ffc0c0",
+        desc: "When you’ve hoped for a long time and feel worn out, but haven’t let go."
+      },
+      {
+        name: "Storm Calm",
+        group: "Protective State",
+        color: "#cfe7ff",
+        desc: "The feeling of holding steady inside chaos."
+      },
+      {
+        name: "Identity‑Curious",
+        group: "Growth State",
+        color: "#c8ffd4",
+        desc: "Wondering who you are becoming and what matters most."
+      }
+    ];
+
+    const grid = document.getElementById("votingGrid");
+    const confirm = document.getElementById("voteConfirm");
+
+    candidates.forEach(tile => {
+      const el = document.createElement("div");
+      el.className = "vote-tile";
+      el.style.backgroundColor = tile.color;
+
+      const name = document.createElement("div");
+      name.className = "vote-tile-name";
+      name.textContent = tile.name;
+
+      const group = document.createElement("div");
+      group.className = "vote-tile-group";
+      group.textContent = tile.group;
+
+      const desc = document.createElement("div");
+      desc.className = "vote-tile-desc";
+      desc.textContent = tile.desc;
+
+      el.appendChild(name);
+      el.appendChild(group);
+      el.appendChild(desc);
+
+      el.addEventListener("click", () => {
+        console.log("Vote recorded:", tile.name);
+        confirm.style.display = "block";
+      });
+
+      grid.appendChild(el);
+    });
+
+    document.getElementById("backToGallery").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
