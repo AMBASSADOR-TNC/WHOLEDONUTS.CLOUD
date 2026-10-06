@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOLEDONUTS CLOUD</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #000;
+            letter-spacing: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 200px);
+            grid-gap: 30px;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .box:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>WHOLEDONUTS CLOUD</h1>
+
+    <div class="grid">
+        <a href="adult/"><div class="box">ADULT</div></a>
+        <a href="youth/"><div class="box">YOUTH</div></a>
+        <a href="vault/"><div class="box">VAULT</div></a>
+        <a href="table/"><div class="box">TABLE</div></a>
+    </div>
+
+</body>
+</html>
