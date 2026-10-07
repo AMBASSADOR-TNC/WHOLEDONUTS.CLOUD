@@ -1,0 +1,29 @@
+{
+    "behavior_map": {
+        "icon_hover": "highlight",
+        "icon_press": "identity-shift",
+        "branch_entry": "animate-in",
+        "branch_exit": "animate-out",
+        "vault_entry": "protocol-engage",
+        "engine_entry": "system-activate",
+        "counter_entry": "identity-assign"
+    },
+    "responses": {
+        "adult": "stabilize",
+        "youth": "expand",
+        "vault": "secure",
+        "table": "illuminate",
+        "engine": "activate",
+        "counter": "assign"
+    },
+    "state_changes": {
+        "identity_state": "adaptive",
+        "movement_state": "responsive",
+        "engine_state": "interactive"
+    },
+    "activation": {
+        "status": "behavior-online",
+        "system_mode": "interactive",
+        "identity_mode": "adaptive"
+    }
+}
