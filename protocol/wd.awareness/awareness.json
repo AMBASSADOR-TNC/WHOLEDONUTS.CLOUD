@@ -1,0 +1,26 @@
+{
+    "self_state": {
+        "identity_engine": "observing",
+        "movement_layer": "aware-of-flow",
+        "behavior_layer": "aware-of-response",
+        "intelligence_layer": "aware-of-learning"
+    },
+    "context_awareness": {
+        "branch_context": "understands-current-identity-branch",
+        "emotional_context": "reads-emotional-table-position",
+        "protocol_context": "tracks-vault-engine-path",
+        "system_context": "monitors-overall-state"
+    },
+    "reflection": {
+        "identity_reflection": "recognizes-patterns",
+        "movement_reflection": "recognizes-transitions",
+        "behavior_reflection": "recognizes-reactions",
+        "system_reflection": "recognizes-purpose"
+    },
+    "activation": {
+        "status": "awareness-online",
+        "system_mode": "self-aware",
+        "identity_mode": "contextual",
+        "engine_mode": "reflective"
+    }
+}
