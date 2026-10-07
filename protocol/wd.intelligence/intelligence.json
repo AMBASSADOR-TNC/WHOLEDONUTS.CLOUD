@@ -1,0 +1,27 @@
+{
+    "learning_map": {
+        "identity_patterns": "track",
+        "branch_frequency": "measure",
+        "vault_usage": "record",
+        "engine_activation": "monitor",
+        "counter_assignments": "log"
+    },
+    "prediction": {
+        "likely_next_branch": "adaptive",
+        "likely_identity_shift": "contextual",
+        "likely_emotional_state": "table-analysis",
+        "likely_protocol_path": "vault-engine"
+    },
+    "memory": {
+        "identity_memory": "short-term",
+        "movement_memory": "transitional",
+        "behavior_memory": "responsive",
+        "system_memory": "persistent"
+    },
+    "activation": {
+        "status": "intelligence-online",
+        "system_mode": "adaptive",
+        "identity_mode": "predictive",
+        "engine_mode": "aware"
+    }
+}
