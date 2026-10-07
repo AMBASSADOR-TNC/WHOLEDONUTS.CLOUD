@@ -1,0 +1,24 @@
+{
+    "movement_map": {
+        "adult_to_youth": "/youth/",
+        "youth_to_adult": "/adult/",
+        "adult_to_vault": "/vault/",
+        "youth_to_vault": "/vault/",
+        "vault_to_table": "/table/",
+        "table_to_engine": "/engine/",
+        "engine_to_counter": "/adult/counter/",
+        "counter_to_adult": "/adult/"
+    },
+    "transitions": {
+        "identity_shift": "branch-to-branch",
+        "symbolic_shift": "icon-to-icon",
+        "emotional_shift": "table-node-to-identity",
+        "protocol_shift": "vault-to-engine"
+    },
+    "activation": {
+        "status": "movement-online",
+        "engine_state": "dynamic",
+        "identity_state": "flowing",
+        "routing_state": "alive"
+    }
+}
