@@ -1,0 +1,26 @@
+# run-activation.py
+
+import os
+
+ACTIVATION_TYPES = [
+    "manual",
+    "automatic",
+    "conditional",
+    "tiered",
+    "lane-based",
+    "domain-based",
+    "state-based"
+]
+
+def activate(mode="automatic"):
+    if mode not in ACTIVATION_TYPES:
+        raise ValueError("Invalid activation type")
+
+    os.environ["WD_ENGINE_STATE"] = "ACTIVE"
+    os.environ["WD_ACTIVATION_MODE"] = mode
+
+    print(f"Whole Donuts Engine Activated in {mode} mode.")
+    print("Buttons, visuals, and actions are now live.")
+
+if __name__ == "__main__":
+    activate("automatic")
