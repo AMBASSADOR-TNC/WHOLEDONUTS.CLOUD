@@ -1,3 +1,3 @@
 document.getElementById("welcome-donate").onclick = () => {
-  window.open("YOUR-GOFUNDME-URL", "_blank");
+  window.open("https://ko-fi.com/wholedonuts", "_blank");
 };
