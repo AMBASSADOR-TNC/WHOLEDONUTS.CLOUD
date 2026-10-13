@@ -1,0 +1,362 @@
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { query, withTransaction } = require('../config/database');
+const { authenticateToken, requireSponsorAccess } = require('../middleware/auth');
+const { generateUniqueReferralCode } = require('../utils/referralCode');
+const { loginLimiters, registrationLimiters, sensitiveAccountLimiters } = require('../middleware/rateLimiter');
+const { calculateEffortScore, applyTierDiscountCap } = require('../utils/effortScore');
+const { clearSessionCookies, setSessionCookies } = require('../middleware/security');
+const {
+  hashRewardIdentity,
+} = require('../services/rewards');
+const {
+  approvedRewardsPrivacyNoticeVersion,
+  rewardsEnabled,
+  selfRegistrationEnabled,
+} = require('../config/environment');
+
+const router = express.Router();
+
+function isEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').toLowerCase());
+}
+
+function sanitizeSponsor(row) {
+  if (!row) return null;
+  const { password_hash, reward_identity_hash, ...sponsor } = row;
+  return sponsor;
+}
+
+router.post('/register', ...registrationLimiters, async (req, res, next) => {
+  if (!selfRegistrationEnabled()) {
+    return res.status(403).json({ error: 'Sponsor self-registration is not available.' });
+  }
+
+  try {
+    const { name, email, password, rewardsConsent = false, privacyNoticeVersion } = req.body;
+
+    if (!name || !isEmail(email) || !password || String(password).length < 8) {
+      return res.status(400).json({ error: 'Name, valid email, and a password with at least 8 characters are required.' });
+    }
+    const approvedNoticeVersion = approvedRewardsPrivacyNoticeVersion();
+    if (rewardsConsent === true && (!rewardsEnabled() || privacyNoticeVersion !== approvedNoticeVersion)) {
+      return res.status(400).json({ error: 'Rewards consent requires the current approved privacy notice.' });
+    }
+
+    const sponsor = await withTransaction(async (client) => {
+      const existing = await client.query('SELECT id FROM sponsors WHERE email = $1', [email.toLowerCase()]);
+      if (existing.rowCount) {
+        return null;
+      }
+
+      const passwordHash = await bcrypt.hash(password, 12);
+      const tempCode = await generateUniqueReferralCode(name.slice(0, 6));
+      const financialSupportAmount = 0;
+      const tierState = applyTierDiscountCap(0, 0);
+
+      const sponsorInsert = await client.query(
+        `INSERT INTO sponsors
+           (name, email, password_hash, referral_code, total_contribution, tier, customization_limit, discount_earned,
+            rewards_consent, rewards_consent_at, privacy_notice_version)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, CASE WHEN $9 THEN NOW() ELSE NULL END, $10)
+         RETURNING *`,
+        [
+          name.trim(),
+          email.toLowerCase(),
+          passwordHash,
+          tempCode,
+          financialSupportAmount,
+          tierState.tier,
+          tierState.customizationLimit,
+          tierState.discountEarned,
+          rewardsConsent === true,
+          privacyNoticeVersion || null,
+        ]
+      );
+
+      await client.query(
+        `INSERT INTO referral_codes (sponsor_id, code_string)
+         VALUES ($1, $2)`,
+        [sponsorInsert.rows[0].id, tempCode]
+      );
+      await client.query(
+        `INSERT INTO sponsor_consent_events (sponsor_id, purpose, granted, policy_version, source)
+         VALUES ($1, 'referral_rewards', $2, $3, 'self_registration')`,
+        [sponsorInsert.rows[0].id, rewardsConsent === true, privacyNoticeVersion || null]
+      );
+
+      return sponsorInsert.rows[0];
+    });
+
+    if (!sponsor) {
+      return res.status(409).json({ error: 'A sponsor with this email already exists.' });
+    }
+
+    return res.status(201).json({ sponsor: sanitizeSponsor(sponsor) });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.put('/me/consent', authenticateToken, ...sensitiveAccountLimiters, async (req, res, next) => {
+  try {
+    if (!req.user.sponsorId) {
+      return res.status(403).json({ error: 'Sponsor access is required.' });
+    }
+    if (typeof req.body.rewardsConsent !== 'boolean') {
+      return res.status(400).json({ error: 'rewardsConsent must be true or false.' });
+    }
+    const approvedNoticeVersion = approvedRewardsPrivacyNoticeVersion();
+    if (req.body.rewardsConsent && (!rewardsEnabled() || req.body.privacyNoticeVersion !== approvedNoticeVersion)) {
+      return res.status(400).json({ error: 'Rewards consent requires the current approved privacy notice.' });
+    }
+
+    const sponsor = await withTransaction(async (client) => {
+      const result = await client.query(
+        `UPDATE sponsors
+         SET rewards_consent = $2,
+             rewards_consent_at = CASE WHEN $2 THEN NOW() ELSE rewards_consent_at END,
+             rewards_consent_withdrawn_at = CASE WHEN $2 THEN NULL ELSE NOW() END,
+             privacy_notice_version = CASE WHEN $2 THEN $3 ELSE privacy_notice_version END,
+             updated_at = NOW()
+         WHERE id = $1
+         RETURNING *`,
+        [req.user.sponsorId, req.body.rewardsConsent, req.body.privacyNoticeVersion || null]
+      );
+      await client.query(
+        `INSERT INTO sponsor_consent_events (sponsor_id, purpose, granted, policy_version, source)
+         VALUES ($1, 'referral_rewards', $2, $3, 'sponsor_portal')`,
+        [req.user.sponsorId, req.body.rewardsConsent, req.body.privacyNoticeVersion || null]
+      );
+      return result.rows[0];
+    });
+    return res.json({ sponsor: sanitizeSponsor(sponsor) });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.put('/:id/reward-identity', authenticateToken, ...sensitiveAccountLimiters, async (req, res, next) => {
+  try {
+    if (!req.user.isOperator) {
+      return res.status(403).json({ error: 'Admin access is required.' });
+    }
+    if (String(req.body.provider || '').toLowerCase() !== 'shopify' || !req.body.subject) {
+      return res.status(400).json({ error: 'A server-verified Shopify customer subject is required.' });
+    }
+    let identityHash;
+    try {
+      identityHash = hashRewardIdentity('shopify', req.body.subject);
+    } catch (error) {
+      if (error.message.includes('Shopify identity')) {
+        return res.status(400).json({ error: error.message });
+      }
+      throw error;
+    }
+    const result = await query(
+      `UPDATE sponsors
+       SET reward_identity_hash = $2,
+           reward_identity_bound_at = NOW(),
+           updated_at = NOW()
+       WHERE id = $1
+       RETURNING *`,
+      [req.params.id, identityHash]
+    );
+    if (!result.rowCount) {
+      return res.status(404).json({ error: 'Sponsor not found.' });
+    }
+    return res.json({ sponsor: sanitizeSponsor(result.rows[0]), rewardIdentityBound: true });
+  } catch (error) {
+    if (error.code === '23505' && error.constraint === 'idx_sponsors_reward_identity') {
+      return res.status(409).json({ error: 'That Shopify customer identity is already bound to a rewards account.' });
+    }
+    return next(error);
+  }
+});
+
+router.post('/login', ...loginLimiters, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!isEmail(email) || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const sponsorResult = await query('SELECT * FROM sponsors WHERE email = $1', [email.toLowerCase()]);
+    const sponsor = sponsorResult.rows[0];
+
+    if (!sponsor || !(await bcrypt.compare(password, sponsor.password_hash))) {
+      return res.status(401).json({ error: 'Invalid email or password.' });
+    }
+
+    const token = jwt.sign(
+      {
+        sponsorId: sponsor.id,
+        email: sponsor.email,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '8h' }
+    );
+
+    setSessionCookies(res, token);
+    return res.json({ sponsor: sanitizeSponsor(sponsor) });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.post('/logout', (_req, res) => {
+  clearSessionCookies(res);
+  return res.status(204).end();
+});
+
+router.get('/:id', authenticateToken, requireSponsorAccess, async (req, res, next) => {
+  try {
+    const sponsorResult = await query('SELECT * FROM sponsors WHERE id = $1', [req.params.id]);
+    if (!sponsorResult.rowCount) {
+      return res.status(404).json({ error: 'Sponsor not found.' });
+    }
+
+    return res.json({ sponsor: sanitizeSponsor(sponsorResult.rows[0]) });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+router.put('/:id', authenticateToken, requireSponsorAccess, async (req, res, next) => {
+  try {
+    const allowedFields = ['name', 'email'];
+    const updates = [];
+    const values = [];
+
+    allowedFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        updates.push(`${field} = $${updates.length + 1}`);
+        values.push(field === 'email' ? String(req.body[field]).toLowerCase() : req.body[field]);
+      }
+    });
+
+    if (req.body.password) {
+      if (String(req.body.password).length < 8) {
+        return res.status(400).json({ error: 'Password must be at least 8 characters long.' });
+      }
+      updates.push(`password_hash = $${updates.length + 1}`);
+      values.push(await bcrypt.hash(req.body.password, 12));
+    }
+
+    if (req.body.safety_status !== undefined) {
+      const isAdmin = Boolean(req.user?.isOperator);
+
+      if (!isAdmin) {
+        return res.status(403).json({ error: 'Only admins can update sponsor safety status.' });
+      }
+
+      updates.push(`safety_status = $${updates.length + 1}`);
+      values.push(req.body.safety_status);
+    }
+
+    if (!updates.length) {
+      return res.status(400).json({ error: 'No valid fields provided for update.' });
+    }
+
+    values.push(req.params.id);
+    const result = await query(
+      `UPDATE sponsors SET ${updates.join(', ')}, updated_at = NOW() WHERE id = $${values.length} RETURNING *`,
+      values
+    );
+
+    if (!result.rowCount) {
+      return res.status(404).json({ error: 'Sponsor not found.' });
+    }
+
+    return res.json({ sponsor: sanitizeSponsor(result.rows[0]) });
+  } catch (error) {
+    return next(error);
+  }
+});
+
+async function getDashboard(req, res, next) {
+  try {
+    const sponsorResult = await query('SELECT * FROM sponsors WHERE id = $1', [req.params.id]);
+    if (!sponsorResult.rowCount) {
+      return res.status(404).json({ error: 'Sponsor not found.' });
+    }
+
+    const sponsor = sponsorResult.rows[0];
+    const metricsResult = await query(
+      `SELECT
+         COALESCE(SUM(CASE WHEN event_type = 'click' THEN 1 ELSE 0 END), 0) AS clicks,
+         COALESCE(SUM(CASE WHEN event_type = 'share' THEN 1 ELSE 0 END), 0) AS shares,
+         COALESCE(SUM(CASE WHEN event_type = 'conversion' THEN 1 ELSE 0 END), 0) AS conversions,
+         COALESCE(MAX(rc.usage_count), 0) AS usage_count,
+         COALESCE((
+           SELECT SUM(rl.points_delta)
+           FROM reward_ledger rl
+           WHERE rl.sponsor_id = $1
+         ), 0) AS verified_reward_points
+       FROM referral_codes rc
+       LEFT JOIN referral_events re ON rc.id = re.code_id
+       WHERE rc.sponsor_id = $1
+       GROUP BY rc.id`,
+      [req.params.id]
+    );
+
+    const metrics = metricsResult.rows[0] || { clicks: 0, shares: 0, conversions: 0, usage_count: 0 };
+    const effort = calculateEffortScore({
+      ...metrics,
+      usageCount: metrics.usage_count,
+      verifiedRewardPoints: metrics.verified_reward_points,
+    });
+    const tierState = applyTierDiscountCap(effort.discountEarned, metrics.verified_reward_points);
+
+    await query(
+      `UPDATE sponsors
+       SET effort_score = $2,
+           discount_earned = $3,
+           tier = $4,
+           customization_limit = $5,
+           updated_at = NOW()
+       WHERE id = $1`,
+      [req.params.id, effort.effortScore, tierState.discountEarned, tierState.tier, tierState.customizationLimit]
+    );
+
+    const ordersResult = await query(
+      `SELECT id, customer_name, customer_email, total, fulfillment_status, referral_code_used, created_at
+       FROM orders
+       WHERE sponsor_id = $1
+       ORDER BY created_at DESC
+       LIMIT 10`,
+      [req.params.id]
+    );
+
+    return res.json({
+      sponsor: {
+        ...sanitizeSponsor({ ...sponsor, effort_score: effort.effortScore, discount_earned: tierState.discountEarned, tier: tierState.tier, customization_limit: tierState.customizationLimit }),
+      },
+      analytics: {
+        clicks: Number(metrics.clicks),
+        shares: Number(metrics.shares),
+        conversions: Number(metrics.conversions),
+        effortScore: effort.effortScore,
+        discountEarned: tierState.discountEarned,
+      },
+      recentOrders: ordersResult.rows,
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+function attachCurrentSponsor(req, res, next) {
+  if (!req.user.sponsorId) {
+    return res.status(403).json({ error: 'Sponsor access is required.' });
+  }
+  req.params.id = req.user.sponsorId;
+  return next();
+}
+
+router.get('/me/dashboard', authenticateToken, attachCurrentSponsor, requireSponsorAccess, getDashboard);
+router.get('/:id/dashboard', authenticateToken, requireSponsorAccess, getDashboard);
+
+module.exports = router;
