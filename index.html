@@ -1,18 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Whole Donuts Ecosystem</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whole Donuts – Unified Identity Engine</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #f7f7f7;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: #222;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    h1 {
+        font-size: 2.6rem;
+        margin-bottom: 10px;
+    }
+    p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+    .room {
+        background: white;
+        padding: 25px;
+        margin: 20px 0;
+        border-radius: 12px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .room:hover {
+        transform: scale(1.03);
+    }
+</style>
 </head>
-<body>
-  <p><a href="table.html">Youth Table</a></p>
-<p><a href="counter.html">Adult Counter</a></p>
-<p><a href="foundation.html">Foundation</a></p>
-<p><a href="vault.html">Vault</a></p>
-<p><a href="movement.html">Movement</a></p>
-<p><a href="store.html">Store</a></p>
 
-  <h1>Whole Donuts Ecosystem Activated</h1>
-  <p>This is the live entry surface. All uploaded folders are now ready for use.</p>
+<body>
+<div class="container">
+
+    <h1>Whole Donuts – Unified Identity Engine</h1>
+    <p>Select a room to enter the movement.</p>
+
+    <div class="room" onclick="location.href='COUNTER.html'">
+        <h2>The Counter</h2>
+        <p>Adult Identity • T.N.C.</p>
+    </div>
+
+    <div class="room" onclick="location.href='TABLE.html'">
+        <h2>The Table</h2>
+        <p>Youth Identity • Whole Donuts</p>
+    </div>
+
+    <div class="room" onclick="location.href='STORE.html'">
+        <h2>The Store</h2>
+        <p>Movement Resources</p>
+    </div>
+
+    <div class="room" onclick="location.href='MOVEMENT.html'">
+        <h2>The Movement</h2>
+        <p>Unified Protocol Engine</p>
+    </div>
+
+    <div class="room" onclick="location.href='FOUNDATION.html'">
+        <h2>The Foundation</h2>
+        <p>Core Identity & Support</p>
+    </div>
+
+</div>
 </body>
 </html>
