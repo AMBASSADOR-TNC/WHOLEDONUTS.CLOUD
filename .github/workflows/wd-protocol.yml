@@ -9,11 +9,17 @@ on:
       - '.bathroom-door/**'
       - 'tools/wd-protocol/**'
       - '.github/workflows/wd-protocol.yml'
+      - 'entry/**'
+      - 'index.html'
+      - 'CNAME'
   pull_request:
     paths:
       - '.bathroom-door/**'
       - 'tools/wd-protocol/**'
       - '.github/workflows/wd-protocol.yml'
+      - 'entry/**'
+      - 'index.html'
+      - 'CNAME'
   workflow_dispatch:
 
 permissions:
@@ -56,5 +62,7 @@ jobs:
           node-version: 22
       - name: Validate archive plan
         run: node tools/wd-protocol/triage.mjs --check
-      - name: Verify blocker archival
-        run: node tools/wd-protocol/triage.test.mjs
+      - name: Check entry script syntax
+        run: node --check entry/js/identity-engine.js
+      - name: Verify entry and blocker archival
+        run: node --test entry/tests/identity-engine.test.js tools/wd-protocol/triage.test.mjs
