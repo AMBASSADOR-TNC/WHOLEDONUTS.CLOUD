@@ -1,0 +1,11 @@
+{
+  "id": "merch-protocol-verification",
+  "kind": "request",
+  "title": "Verify the Merch Bathroom Door implementation",
+  "createdAt": "2026-10-30T14:25:00.000Z",
+  "availability": "unverified",
+  "status": "blocked",
+  "source": "HTTPS-WWW-WENEVERGONNACLOSE-COM/wholedonuts-merch-platform",
+  "blocker": "The Merch workstream became idle without a verifiable commit hash or validation report, so no claimed implementation can advance.",
+  "notes": "Metadata-only routing record; it contains no merchant, customer, order, payment, or credential data."
+}
