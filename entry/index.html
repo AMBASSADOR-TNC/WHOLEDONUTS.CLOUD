@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>wenevergonnaclose · Identity Engine</title>
   <link rel="stylesheet" href="css/identity.css">
+  <link rel="stylesheet" href="../pages/local-journey.css">
 </head>
 <body>
   <main id="engine">
@@ -49,6 +50,10 @@
         </button>
       </div>
     </section>
+
+    <section id="journey" data-local-journey hidden></section>
+
+    <noscript><p>The optional journey needs JavaScript. You can still browse the Cloud homepage and operational status above.</p></noscript>
 
     <!-- STEP 2: PRESENT EMOTION -->
     <section class="engine-step" data-step="2">
@@ -128,6 +133,7 @@
     </footer>
   </main>
 
+  <script src="../pages/local-journey.js"></script>
   <script src="js/identity-engine.js"></script>
 </body>
 </html>

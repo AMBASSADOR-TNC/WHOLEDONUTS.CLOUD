@@ -59,14 +59,21 @@ ul {
 }
 
 .fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 1;
+  transform: none;
 }
 
 .fade.visible {
-  opacity: 1;
-  transform: none;
+  animation: fade-in 0.8s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade.visible { animation: none; }
 }
 
 @media (max-width: 600px) {

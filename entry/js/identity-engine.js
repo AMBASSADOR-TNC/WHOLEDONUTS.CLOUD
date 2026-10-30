@@ -35,20 +35,24 @@ function selectCard(group, value) {
         card.dataset.present === value ||
         card.dataset.future === value) {
       card.classList.add("selected");
+      card.setAttribute("aria-pressed", "true");
     } else {
       card.classList.remove("selected");
+      card.setAttribute("aria-pressed", "false");
     }
   });
 }
 
 // STEP 1: Base figure
 document.querySelectorAll(".figure-card").forEach(card => {
+  card.setAttribute("aria-pressed", "false");
   card.addEventListener("click", () => {
     if (state.base === card.dataset.base) return;
 
     state.base = card.dataset.base;
     selectCard(".figure-card", state.base);
     showNextWelcomeMessage();
+    localJourneys.get(document.getElementById("journey")).start();
   });
 });
 
@@ -56,6 +60,7 @@ showNextWelcomeMessage();
 
 // STEP 2: Present emotion
 document.querySelectorAll("#present-emotions .emotion-card").forEach(card => {
+  card.setAttribute("aria-pressed", "false");
   card.addEventListener("click", () => {
     state.presentEmotion = card.dataset.present;
     selectCard("#present-emotions .emotion-card", state.presentEmotion);
@@ -64,6 +69,7 @@ document.querySelectorAll("#present-emotions .emotion-card").forEach(card => {
 
 // STEP 3: Future emotion
 document.querySelectorAll("#future-emotions .emotion-card").forEach(card => {
+  card.setAttribute("aria-pressed", "false");
   card.addEventListener("click", () => {
     state.futureEmotion = card.dataset.future;
     selectCard("#future-emotions .emotion-card", state.futureEmotion);
