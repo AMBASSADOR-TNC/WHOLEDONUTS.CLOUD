@@ -353,6 +353,7 @@ test("maintained rooms load one shared local experience with working return link
     assert.equal((source.match(/src="[^"]*local-journey.js"/g) || []).length, 1, name);
     assert.match(source, /href="[^"]*entry\/"/, name);
     assert.match(source, /href="[^"]*entry\/status.html"/, name);
+    assert.doesNotMatch(source, /(?:href|src)="(?:https?:|\/\/)/i, `${name}: unverified outbound destination must not be enabled`);
     for (const [, target] of source.matchAll(/(?:href|src)="([^"]+)"/g)) {
       if (/^(?:[a-z]+:|\/\/)/i.test(target)) continue;
       const resolved = path.resolve(path.dirname(file), target);
@@ -440,4 +441,57 @@ test("each emotional table selection reveals its actual description through nati
     assert.equal(card.attributes["aria-pressed"], "true");
   });
   assert.match(table, /id="emotionSelection" role="status" aria-live="polite" tabindex="-1"/);
+});
+
+test("business support boundaries and unavailable legacy destinations remain explicit", () => {
+  for (const name of ["store.html", "foundation.html", "pages/donor.html"]) {
+    const source = fs.readFileSync(path.join(root, "..", name), "utf8");
+    assert.match(source, /Whole Donuts LLC is a business, not a nonprofit charity/);
+    assert.match(source, /not a tax-deductible charitable donation, purchase, investment, or automatic reward/);
+    assert.match(source, /No verified payment channel or checkout is active here/);
+  }
+  for (const name of ["counter.html", "store.html", "foundation.html"]) {
+    const source = fs.readFileSync(path.join(root, "..", name), "utf8");
+    assert.match(source, /thenurturedchef.com/);
+    assert.match(source, /unavailable pending destination/);
+    assert.doesNotMatch(source, /href="https:\/\/thenurturedchef.com/);
+  }
+  const donor = fs.readFileSync(path.join(root, "../pages/donor.html"), "utf8");
+  assert.match(donor, /Cash App \+ Chime — unavailable/);
+  assert.match(donor, /Chase Business — unavailable/);
+  assert.match(donor, /plans, not verified live programs/);
+  assert.doesNotMatch(fs.readFileSync(path.join(root, "../movement.html"), "utf8"), /href="donations\/"/);
+});
+
+test("room content is visible without scripts and reduced-motion users do not receive fade animation", () => {
+  const style = fs.readFileSync(path.join(root, "../pages/style.css"), "utf8");
+  const motion = fs.readFileSync(path.join(root, "../pages/motion.js"), "utf8");
+  assert.match(style, /\.fade\s*\{\s*opacity: 1;\s*transform: none;/);
+  assert.match(style, /@media \(prefers-reduced-motion: reduce\)\s*\{\s*\.fade.visible \{ animation: none;/);
+  assert.doesNotThrow(() => vm.runInNewContext(motion, {}), "no observer support must not hide content or throw");
+  vm.runInNewContext(motion, {
+    matchMedia: () => ({ matches: true }),
+    IntersectionObserver: function () { throw new Error("Reduced motion must not initialize animation"); }
+  });
+  const fader = makeElement();
+  const observed = [];
+  const unobserved = [];
+  let callback;
+  const context = {
+    matchMedia: () => ({ matches: false }),
+    document: { querySelectorAll: () => [fader] },
+    IntersectionObserver: class {
+      constructor(handler) { callback = handler; }
+      observe(element) { observed.push(element); }
+      unobserve(element) { unobserved.push(element); }
+    }
+  };
+  vm.runInNewContext(motion, context);
+  assert.deepEqual(observed, [fader]);
+  const observer = { unobserve: element => unobserved.push(element) };
+  callback([{ target: fader, isIntersecting: false }], observer);
+  assert.equal(fader.classList.contains("visible"), false);
+  callback([{ target: fader, isIntersecting: true }], observer);
+  assert.equal(fader.classList.contains("visible"), true);
+  assert.deepEqual(unobserved, [fader]);
 });

@@ -41,6 +41,10 @@ use a separate nine-idea curated design/exploration collection through the same
 mechanism, with reveal, dismiss, and bounded completion. They are not live
 trends, monitored opportunities, personalized recommendations, inventory, or
 sales findings. Any future live input requires explicit configuration and review.
+Unverified adult destinations and the legacy donations hub are unavailable
+text, not active room links. Support pages state the LLC/noncharitable boundary
+and distinguish intended activities from verified services. Page content is
+visible without JavaScript; optional fade animation respects reduced motion.
 
 ## Subsystems
 
