@@ -47,8 +47,10 @@ document.querySelectorAll("[data-local-journey]").forEach((container, instance) 
       not treatment, a purchase, or activation of a service.</p>
     <button type="button" data-action="start">Start a local discovery</button>
     <div data-part="experience" hidden>
-      <p data-part="message" role="status" aria-live="polite" aria-atomic="true"></p>
-      <p data-part="prompt"></p>
+      <div role="status" aria-live="polite" aria-atomic="true">
+        <p data-part="message"></p>
+        <p data-part="prompt"></p>
+      </div>
       <div data-part="choices" class="journey-controls">
         <button type="button" data-journey="notice">Notice something</button>
         <button type="button" data-journey="imagine">Imagine something</button>

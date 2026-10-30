@@ -222,6 +222,12 @@ test("Cloud entry links, scripts, styles, and retained navigation resolve locall
   }
   const homepage = fs.readFileSync(path.join(root, "../index.html"), "utf8");
   assert.match(homepage, /<a href="entry\/">Universal four-figure \+U entry<\/a>/);
+  assert.deepEqual(
+    [...homepage.matchAll(/<a class="room" href="([^"]+)">/g)].map(match => match[1]),
+    ["counter.html", "table.html", "store.html", "movement.html", "foundation.html", "pages/donor.html", "pages/identity-law.html"]
+  );
+  assert.doesNotMatch(homepage, /onclick=|location\.href|<div class="room"/);
+  assert.match(homepage, /\.room\s*\{\s*display: block;\s*color: inherit;\s*text-decoration: none;/);
   assert.match(html, /name="viewport"/);
   assert.doesNotMatch(html + script, /whnutz/i);
   assert.equal(fs.readFileSync(path.join(root, "../CNAME"), "utf8").trim(), "wholedonuts.cloud");
@@ -323,7 +329,8 @@ test("skip and restart preserve emotion choices and visited prompts while figure
   assert.match(page.routeMessage.textContent, /External routing is blocked/);
   assert.equal(page.present[0].attributes["aria-pressed"], "true");
   assert.equal(page.future[0].attributes["aria-pressed"], "true");
-  assert.match(sharedScript, /data-part="message" role="status" aria-live="polite"/);
+  assert.match(sharedScript, /<div role="status" aria-live="polite" aria-atomic="true">\s*<p data-part="message"><\/p>\s*<p data-part="prompt"><\/p>\s*<\/div>/);
+  assert.equal((sharedScript.match(/aria-live=/g) || []).length, 1, "announce progress and activity together, not through duplicate live regions");
   assert.match(sharedScript, /<h2 tabindex="-1"/);
   assert.equal([...sharedScript.matchAll(/<button type="button" data-journey=/g)].length, 3);
   assert.doesNotMatch(html, /<textarea/);
