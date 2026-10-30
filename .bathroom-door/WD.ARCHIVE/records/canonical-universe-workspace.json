@@ -1,0 +1,11 @@
+{
+  "id": "canonical-universe-workspace",
+  "kind": "request",
+  "title": "Configure the canonical Universe Bathroom Door workspace",
+  "createdAt": "2026-10-30T14:22:00.000Z",
+  "availability": "missing",
+  "status": "blocked",
+  "source": "thewholedonuts-beep/wholedonuts-universe",
+  "blocker": "The local Universe worker lacks write permission and cloud sandbox provisioning is unavailable, so no verified canonical-Universe change can advance from this workspace.",
+  "notes": "Metadata-only routing record; it contains no copied cross-repository content."
+}
