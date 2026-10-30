@@ -1,4 +1,4 @@
-1. IDENTITY SYSTEM (WHNUTZ)
+1. IDENTITY SYSTEM (WHOLE DONUTS CLOUD)
 Defines who we are when we help.
 
 Stabilize
@@ -132,7 +132,7 @@ Advancement Permission
 Ecosystem Permission
 
 8. ACTION MATRIX (AM‑49)
-49 actions across WHNUTZ, Sunshine, and ACCESS.
+49 actions across Whole Donuts Cloud, Sunshine, and ACCESS.
 
 Categories:
 
@@ -333,7 +333,7 @@ Every domain re-enters
 Every domain advances
 
 19. OMNI-IDENTITY FIELD (OIF)
-Unifies WHNUTZ, Sunshine, ACCESS into one identity.
+Unifies Whole Donuts Cloud, Sunshine, ACCESS into one identity.
 
 Behavior:
 
@@ -358,7 +358,7 @@ Lift
 
 Broadcast
 
-Reinforce WHNUTZ
+Reinforce Whole Donuts Cloud
 
 Support ACCESS
 

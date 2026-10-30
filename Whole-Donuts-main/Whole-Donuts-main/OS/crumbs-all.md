@@ -114,7 +114,7 @@ Defines how crumbs move across the OS.
 Maps crumbs to the 28-domain ecosystem.
 
 ## Mapping:
-- identity crumbs → WHNUTZ
+- identity crumbs → Whole Donuts Cloud
 - community crumbs → Sunshine
 - routing crumbs → ACCESS
 - domain crumbs → 28-domain grid
@@ -157,7 +157,7 @@ The master engine.
 Connects crumbs to the Whole Donuts Operating System.
 
 ## Integration Points:
-- Identity System (WHNUTZ)
+- Identity System (Whole Donuts Cloud)
 - Community System (Sunshine)
 - Routing System (ACCESS)
 - Domain System (28-domain map)

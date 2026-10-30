@@ -1,6 +1,6 @@
 # ACTION MATRIX (AM-49)
 
-The AM-49 defines 49 actions across WHNUTZ, Sunshine, and ACCESS.
+The AM-49 defines 49 actions across Whole Donuts Cloud, Sunshine, and ACCESS.
 
 ## Categories
 - Stabilizers

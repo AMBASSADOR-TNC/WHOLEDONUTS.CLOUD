@@ -1,89 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whole Donuts – Entry and Operational Status</title>
-
-    <link rel="stylesheet" href="../identity.css">
-
-    <style>
-        body {
-            background:#fff;
-            color:#000;
-            font-family:Arial, Helvetica, sans-serif;
-            margin:0;
-            padding:0;
-        }
-        #identity-container {
-            width:100%;
-            max-width:760px;
-            min-height:100vh;
-            margin:0 auto;
-            padding:32px 24px;
-            display:flex;
-            justify-content:center;
-            flex-direction:column;
-            gap:20px;
-            line-height:1.6;
-        }
-        .symbol {
-            font-size:6rem;
-            font-weight:bold;
-            letter-spacing:-4px;
-        }
-        .subtext {
-            font-size:1.2rem;
-        }
-        h1 {
-            font-size:1.8rem;
-        }
-        h2 {
-            font-size:1.2rem;
-            margin-bottom:8px;
-        }
-        ul {
-            padding-left:24px;
-        }
-        a {
-            color:inherit;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wenevergonnaclose · Identity Engine</title>
+  <link rel="stylesheet" href="css/identity.css">
 </head>
-
 <body>
+  <main id="engine">
+    <!-- HEADER -->
+    <header class="engine-header">
+      <h1>+U Identity Engine</h1>
+      <nav aria-label="Cloud navigation">
+        <a href="../index.html">Cloud homepage</a> |
+        <a href="status.html">Operational status and safety boundary</a>
+      </nav>
+      <p>Everyone starts here. Local-only selections. No data collection or external routing.</p>
+      <p id="entryMessage" class="entry-message" role="status" aria-live="polite" aria-atomic="true"></p>
+    </header>
 
-<main id="identity-container">
-    <div class="symbol" aria-hidden="true">+U</div>
-    <h1>Whole Donuts Entry</h1>
-    <p class="subtext">Static pages and design specifications, not an end-to-end operational service.</p>
-
-    <section aria-labelledby="available-heading">
-        <h2 id="available-heading">Available to browse</h2>
-        <ul>
-            <li><a href="../index.html">Whole Donuts homepage</a></li>
-            <li><a href="../emotional-periodic-table.html">Emotional periodic table</a></li>
-            <li><a href="../Whole-Donuts-main/Whole-Donuts-main/OS/crumb-saver.md">Crumb Saver specification</a></li>
-        </ul>
+    <!-- STEP 1: BASE FIGURE -->
+    <section class="engine-step" data-step="1">
+      <h2>Step 1 · Choose your base stick figure</h2>
+      <div class="figure-grid">
+        <button class="figure-card" data-base="adult-man">
+          <div class="stick-figure +u" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Adult Man +U</span>
+        </button>
+        <button class="figure-card" data-base="adult-woman">
+          <div class="stick-figure +u" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Adult Woman +U</span>
+        </button>
+        <button class="figure-card" data-base="youth-boy">
+          <div class="stick-figure +u" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Youth Boy +U</span>
+        </button>
+        <button class="figure-card" data-base="youth-girl">
+          <div class="stick-figure +u" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Youth Girl +U</span>
+        </button>
+      </div>
     </section>
 
-    <section aria-labelledby="inactive-heading">
-        <h2 id="inactive-heading">Not operational here</h2>
-        <p>Protocol, movement, and routing engines are not connected to this entry.
-        Crumb Saver, Vault, Pipe, and Loop are specifications only: no personal submissions,
-        user-data ingestion, automated storage, or processing is enabled here.</p>
-        <p>Rewards code exists in the bundled merch source, but it is not a deployed or configured
-        rewards service. No rewards, payment, or store-provider integration is activated by this page.</p>
+    <!-- STEP 2: PRESENT EMOTION -->
+    <section class="engine-step" data-step="2">
+      <h2>Step 2 · How do you feel right now?</h2>
+      <p class="step-note">Choose one black‑and‑white emotion stick figure.</p>
+      <div class="emotion-grid" id="present-emotions">
+        <!-- 14 emotion tiles, all black & white, all +U -->
+        <!-- Example subset; more can be added by community -->
+        <button class="emotion-card" data-present="calm">
+          <div class="stick-figure +u calm" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Calm</span>
+        </button>
+        <button class="emotion-card" data-present="overwhelmed">
+          <div class="stick-figure +u overwhelmed" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Overwhelmed</span>
+        </button>
+        <button class="emotion-card" data-present="hopeful">
+          <div class="stick-figure +u hopeful" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Hopeful</span>
+        </button>
+        <!-- Add more: tired, excited, confused, focused, etc. -->
+      </div>
     </section>
 
-    <section aria-labelledby="safety-heading">
-        <h2 id="safety-heading">Bathroom Door safety boundary</h2>
-        <p>The intake/routing design is metadata-only. Only verified and approved material
-        may advance. Unknown content stays blocked or archived and must not be executed,
-        published, or routed onward. This page does not accept submissions.</p>
-        <p><a href="../Whole-Donuts-main/Whole-Donuts-main/OS/crumb-code.md">Read the safety boundary and implementation limits</a>.</p>
+    <!-- STEP 3: FUTURE EMOTION -->
+    <section class="engine-step" data-step="3">
+      <h2>Step 3 · How do you hope to feel?</h2>
+      <p class="step-note">Choose one future emotion stick figure.</p>
+      <div class="emotion-grid" id="future-emotions">
+        <!-- 7 future emotion tiles -->
+        <button class="emotion-card" data-future="steady">
+          <div class="stick-figure +u steady" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Steady</span>
+        </button>
+        <button class="emotion-card" data-future="proud">
+          <div class="stick-figure +u proud" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Proud</span>
+        </button>
+        <button class="emotion-card" data-future="peaceful">
+          <div class="stick-figure +u peaceful" aria-hidden="true">
+            <span class="arms"></span><span class="leg-left"></span><span class="leg-right"></span>
+          </div>
+          <span>Peaceful</span>
+        </button>
+        <!-- Add more future arcs as needed -->
+      </div>
     </section>
-</main>
 
+    <!-- STEP 4: HS GRAD YEAR -->
+    <section class="engine-step" data-step="4">
+      <h2>Step 4 · Your high school graduation year</h2>
+      <p class="step-note">This selects a local lane. External destinations remain blocked until verified for launch.</p>
+      <div class="grad-input">
+        <label for="gradYear">Graduation year</label>
+        <input type="number" id="gradYear" min="1900" max="2100" placeholder="YYYY">
+      </div>
+      <button id="routeButton">Continue</button>
+      <p id="routeMessage" class="route-message"></p>
+    </section>
+
+    <!-- FOOTER: COMMUNITY MOMENTUM NOTE -->
+    <footer class="engine-footer">
+      <p>
+        This identity engine is never finished.
+        Community momentum can add new stick figures, new emotions, new arcs—always black & white, always +U.
+      </p>
+    </footer>
+  </main>
+
+  <script src="js/identity-engine.js"></script>
 </body>
 </html>

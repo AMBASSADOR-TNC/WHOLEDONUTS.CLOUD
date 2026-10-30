@@ -46,7 +46,7 @@ Crumb becomes a structured asset:
 
 ### 6. Route
 Asset is routed to the correct lane:
-WHNUTZ / Sunshine / ACCESS / Domain / Donor / OS.
+Whole Donuts Cloud / Sunshine / ACCESS / Domain / Donor / OS.
 
 ### 7. Deliver
 Asset becomes part of the ecosystem:
