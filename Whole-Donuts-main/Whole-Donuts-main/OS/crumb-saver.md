@@ -18,7 +18,7 @@ To ensure nothing is lost, nothing is wasted, and every crumb has a home.
 - Helper ideas
 - Domain fragments
 - Micro-product concepts
-- Early WHNUTZ identity pieces
+- Early Whole Donuts Cloud identity pieces
 - Unfinished thoughts
 - Forgotten files
 

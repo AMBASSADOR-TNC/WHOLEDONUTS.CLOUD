@@ -1,0 +1,200 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #ffffff;
+  color: #000000;
+}
+
+#engine {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.engine-header, .engine-footer {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.engine-step {
+  border-top: 1px solid #000;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.figure-grid,
+.emotion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.figure-card,
+.emotion-card {
+  border: 1px solid #000;
+  background: #fff;
+  padding: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.figure-card:hover,
+.emotion-card:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.figure-card.selected,
+.emotion-card.selected {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Base stick figure style: black & white, +U embedded */
+.stick-figure {
+  width: 60px;
+  height: 80px;
+  margin: 0 auto 0.5rem;
+  position: relative;
+}
+
+/* Head */
+.stick-figure::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  transform: translateX(-50%);
+}
+
+/* Body */
+.stick-figure::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 2px;
+  height: 32px;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+/* Arms */
+.stick-figure .arms {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  width: 40px;
+  height: 2px;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+/* Legs */
+.stick-figure .leg-left,
+.stick-figure .leg-right {
+  position: absolute;
+  top: 56px;
+  width: 2px;
+  height: 24px;
+  background: currentColor;
+}
+
+.stick-figure .leg-left {
+  left: 45%;
+  transform: rotate(-10deg);
+}
+
+.stick-figure .leg-right {
+  left: 55%;
+  transform: rotate(10deg);
+}
+
+/* +U mark: small symbol near heart */
+.stick-figure::marker,
+.stick-figure::selection {
+  /* intentionally unused to keep browser defaults clean */
+}
+
+.stick-figure::after {
+  /* body already defined above */
+}
+
+/* +U badge */
+.stick-figure::part(+u) {
+  /* not widely supported; instead we’ll use a pseudo-element below */
+}
+
+/* +U pseudo-element */
+.stick-figure::before,
+.stick-figure::after {
+  /* already used; so we add a dedicated element in HTML if needed */
+}
+
+/* Simple +U overlay using text */
+.stick-figure + span::before {
+  content: "+U ";
+  font-weight: 600;
+}
+
+/* Emotion variations (still black & white, only posture changes) */
+.stick-figure.calm {
+  opacity: 0.9;
+}
+
+.stick-figure.overwhelmed {
+  transform: translateY(2px);
+}
+
+.stick-figure.hopeful {
+  transform: translateY(-2px);
+}
+
+.stick-figure.steady,
+.stick-figure.proud,
+.stick-figure.peaceful {
+  opacity: 1;
+}
+
+/* Grad year input */
+.grad-input {
+  margin: 1rem 0;
+}
+
+.grad-input input {
+  padding: 0.5rem;
+  border: 1px solid #000;
+  width: 140px;
+}
+
+#routeButton {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #000;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+#routeButton:hover {
+  background: #000;
+  color: #fff;
+}
+
+.route-message {
+  margin-top: 0.8rem;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  #engine {
+    padding: 1.5rem 0.75rem 2.5rem;
+  }
+}

@@ -27,7 +27,7 @@ Crumb is refined into a clearer form:
 
 ### 4. Route
 Crumb is sent to the correct subsystem:
-WHNUTZ / Sunshine / ACCESS / Domain / Donor / OS.
+Whole Donuts Cloud / Sunshine / ACCESS / Domain / Donor / OS.
 
 ### 5. Build
 Crumb becomes a structured asset:
