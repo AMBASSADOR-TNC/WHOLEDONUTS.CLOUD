@@ -1,5 +1,9 @@
 # CRUMB SAVER OS (ALLCRUMBS-∞)
 
+**Specification only, not a deployed service.** All components, behaviors, and
+integration points below are design goals, not running services or guarantees.
+See the [Bathroom Door safety boundary](crumb-code.md#bathroom-door-safety-boundary).
+
 The Crumb Saver OS is the complete, unified system that captures, stores,
 moves, evolves, transforms, and integrates every crumb inside the Whole Donuts ecosystem.
 
@@ -163,4 +167,6 @@ Connects crumbs to the Whole Donuts Operating System.
 ---
 
 # STATUS
-Crumb Saver OS is fully active.
+Crumb Saver OS is not operational. These documents do not enable personal
+submissions, user-data ingestion, automated storage, processing, publication,
+donor flows, or rewards. End-to-end operation has not been established.

@@ -1,5 +1,8 @@
 # CRUMB VAULT (CV-∞)
 
+**Specification only, not a deployed service.** The storage and retention behavior
+below describes design goals, not guarantees. See the [Bathroom Door safety boundary](crumb-code.md#bathroom-door-safety-boundary).
+
 The Crumb Vault is the permanent memory chamber of the Whole Donuts ecosystem.
 It stores every crumb—every idea, spark, fragment, draft, phrase, helper concept,
 domain seed, micro-product sketch, and unfinished thought.
@@ -49,4 +52,5 @@ Every crumb becomes part of the ecosystem's future.
 - New ecosystem layers
 
 ## Status
-Crumb Vault is active.
+Crumb Vault is not operational. No deployed storage, backup, retention, or
+resurfacing service is provided by this specification.

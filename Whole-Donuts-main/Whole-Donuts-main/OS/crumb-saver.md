@@ -1,5 +1,8 @@
 # CRUMB SAVER (CS-1)
 
+**Specification only, not a deployed service.** The flows and outputs below are
+design goals, not running behavior. See the [Bathroom Door safety boundary](crumb-code.md#bathroom-door-safety-boundary).
+
 The Crumb Saver collects every idea, note, draft, spark, and fragment
 created inside or around the Whole Donuts ecosystem.
 
@@ -44,4 +47,5 @@ To ensure nothing is lost, nothing is wasted, and every crumb has a home.
 - Ecosystem expansions
 
 ## Status
-Crumb Saver is active.
+Crumb Saver is not operational. No personal submissions, user-data ingestion,
+automated storage, processing, or rewards service is enabled by this specification.

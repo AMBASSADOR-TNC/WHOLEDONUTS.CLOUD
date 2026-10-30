@@ -1,5 +1,8 @@
 # CRUMB PIPE (CP-7)
 
+**Specification only, not a deployed service.** The stages and outputs below are
+design goals, not running behavior. See the [Bathroom Door safety boundary](crumb-code.md#bathroom-door-safety-boundary).
+
 The Crumb Pipe is the movement engine of the Crumb Saver.
 It moves crumbs from raw idea → structured value → ecosystem output.
 
@@ -70,4 +73,5 @@ Asset becomes part of the ecosystem:
 - New ecosystem expansions
 
 ## Status
-Crumb Pipe is active.
+Crumb Pipe is not operational. No capture, processing, routing, or delivery
+service is enabled by this specification.
