@@ -1,0 +1,60 @@
+name: Bathroom Door protocol
+
+on:
+  issues:
+    types: [labeled]
+  push:
+    branches: [main]
+    paths:
+      - '.bathroom-door/**'
+      - 'tools/wd-protocol/**'
+      - '.github/workflows/wd-protocol.yml'
+  pull_request:
+    paths:
+      - '.bathroom-door/**'
+      - 'tools/wd-protocol/**'
+      - '.github/workflows/wd-protocol.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ensure-labels:
+    if: github.event_name != 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Ensure Bathroom Door labels exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create bathroom-door-blocker --repo "$GITHUB_REPOSITORY" --color D93F0B --description "Bathroom Door operational blocker" --force
+          gh label create bathroom-door-archive --repo "$GITHUB_REPOSITORY" --color 6A737D --description "Bathroom Door archived operational item" --force
+
+  archive-labeled-issue:
+    if: github.event_name == 'issues' && github.event.label.name == 'bathroom-door-blocker'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Mark issue as Bathroom Door archived operational work
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: gh issue edit "$ISSUE_URL" --add-label bathroom-door-archive
+
+  validate-manifests:
+    if: github.event_name != 'issues'
+    needs: ensure-labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate archive plan
+        run: node tools/wd-protocol/triage.mjs --check
+      - name: Verify blocker archival
+        run: node tools/wd-protocol/triage.test.mjs
