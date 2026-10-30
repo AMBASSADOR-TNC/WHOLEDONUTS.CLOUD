@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>THE EMOTIONAL TABLE OF HEALING</title>
 
   <link rel="stylesheet" href="identity.css" />
+  <link rel="stylesheet" href="pages/local-journey.css" />
   <script src="identity-engine.js" defer></script>
 
   <style>
@@ -19,12 +21,22 @@
       border-radius: 8px;
       padding: 0.75rem 1rem;
       background: #fff;
+      color: #000;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .emotion-card[aria-pressed="true"] {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
     }
     .emotion-title {
+      display: block;
       font-weight: 600;
       margin-bottom: 0.35rem;
     }
     .emotion-body {
+      display: block;
       font-size: 0.9rem;
       line-height: 1.3rem;
     }
@@ -53,12 +65,25 @@
           and how to move forward with clarity and confidence.
         </div>
 
+        <nav aria-label="Cloud rooms">
+          <a href="entry/">Universal entry</a> |
+          <a href="table.html">The Table</a> |
+          <a href="counter.html">The Counter</a> |
+          <a href="index.html">Cloud rooms</a> |
+          <a href="entry/status.html">Operational status</a>
+        </nav>
+        <p id="emotionSelection" role="status" aria-live="polite" tabindex="-1">Choose an emotion to reveal its description here. These are reflection ideas, not a diagnosis or treatment.</p>
+        <section data-local-journey>
+          <p>Your selected emotion description stays above while you explore optional discoveries.
+            Activities are not advice tailored to an emotion. No response is collected or saved.</p>
+        </section>
+
         <!-- EMOTIONAL GRID -->
         <div id="emotionGrid" class="emotion-grid"></div>
 
         <div class="section-title">WHAT TO DO NEXT</div>
         <div class="section-body">
-          Choose an emotion above to begin your path toward healing, clarity, and direction.
+          Choose an emotion to explore its description locally, then try an optional discovery or return to the Cloud rooms.
         </div>
 
       </div>
@@ -178,22 +203,33 @@
     const grid = document.getElementById("emotionGrid");
 
     emotions.forEach(emotion => {
-      const card = document.createElement("div");
+      const card = document.createElement("button");
+      card.type = "button";
       card.className = "emotion-card";
       card.dataset.emotion = emotion.name.toLowerCase();
+      card.setAttribute("aria-pressed", "false");
 
-      const title = document.createElement("div");
+      const title = document.createElement("span");
       title.className = "emotion-title";
       title.textContent = emotion.name;
 
-      const body = document.createElement("div");
+      const body = document.createElement("span");
       body.className = "emotion-body";
       body.textContent = emotion.desc;
 
       card.appendChild(title);
       card.appendChild(body);
+      card.addEventListener("click", () => {
+        grid.querySelectorAll("button").forEach(button => {
+          button.setAttribute("aria-pressed", button === card ? "true" : "false");
+        });
+        const selection = document.getElementById("emotionSelection");
+        selection.textContent = `${emotion.name}: ${emotion.desc} This is a reflection description, not a diagnosis or treatment.`;
+        selection.focus();
+      });
       grid.appendChild(card);
     });
   </script>
+  <script src="pages/local-journey.js"></script>
 </body>
 </html>

@@ -19,6 +19,28 @@ See [operational status and the Bathroom Door boundary](../../../entry/status.ht
 The entry markup, styles, engine, and baseline tests originate from
 `AMBASSADOR-TNC/WENEVERGONNACLOSE` commit
 `b2bf526d6580f4f4b00f862a69b370238968fc02`, integrated under `entry/`.
+The Cloud version intentionally evolves that baseline with an optional,
+choice-driven three-discovery journey for every figure. Nine fixed notice,
+imagine, and reflect activities are drawn without replacement per visit;
+restart does not refill them, and exhaustion ends the collection. Welcome
+messages retain their separate ten-message collection. Skip, finish, and
+restart stay local and do not clear existing emotion selections. There is no
+free-text collection, persistent storage, external routing, or automated learning.
+
+The same optional local interaction is shared by the root Counter, Table,
+Store, Movement, Foundation, Identity Law, Donor, and Emotional Table pages
+through `pages/local-journey.js` and `pages/local-journey.css`. "Inside world"
+here refers to those maintained rooms, not a new route or archived bundle.
+The Emotional Table uses native emotion buttons to reveal the selected
+emotion's existing description; activities are optional and are not clinical
+advice tailored to that emotion. Store and payment limitations remain visible.
+Each page keeps its content and links back to the universal entry and status.
+Collections are in memory for each page visit; navigating or reloading starts
+a new visit, without tracking between rooms. The Store's optional "whispers"
+use a separate nine-idea curated design/exploration collection through the same
+mechanism, with reveal, dismiss, and bounded completion. They are not live
+trends, monitored opportunities, personalized recommendations, inventory, or
+sales findings. Any future live input requires explicit configuration and review.
 
 ## Subsystems
 

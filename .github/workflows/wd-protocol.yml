@@ -12,6 +12,13 @@ on:
       - 'entry/**'
       - 'index.html'
       - 'CNAME'
+      - 'pages/**'
+      - 'counter.html'
+      - 'table.html'
+      - 'store.html'
+      - 'movement.html'
+      - 'foundation.html'
+      - 'emotional-periodic-table.html'
   pull_request:
     paths:
       - '.bathroom-door/**'
@@ -20,6 +27,13 @@ on:
       - 'entry/**'
       - 'index.html'
       - 'CNAME'
+      - 'pages/**'
+      - 'counter.html'
+      - 'table.html'
+      - 'store.html'
+      - 'movement.html'
+      - 'foundation.html'
+      - 'emotional-periodic-table.html'
   workflow_dispatch:
 
 permissions:
@@ -63,6 +77,8 @@ jobs:
       - name: Validate archive plan
         run: node tools/wd-protocol/triage.mjs --check
       - name: Check entry script syntax
-        run: node --check entry/js/identity-engine.js
+        run: |
+          node --check entry/js/identity-engine.js
+          node --check pages/local-journey.js
       - name: Verify entry and blocker archival
         run: node --test entry/tests/identity-engine.test.js tools/wd-protocol/triage.test.mjs
