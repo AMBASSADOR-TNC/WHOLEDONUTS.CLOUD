@@ -3,22 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whole Donuts – Unified Identity Engine</title>
+    <title>Whole Donuts – Entry and Operational Status</title>
 
-    <!-- CORE IDENTITY ENGINE -->
     <link rel="stylesheet" href="../identity.css">
-    <script src="../identity-engine.js" defer></script>
 
-    <!-- PROTOCOL ENGINE -->
-    <script src="../protocol-engine.js" defer></script>
-
-    <!-- MOVEMENT ENGINE -->
-    <script src="../movement-engine.js" defer></script>
-
-    <!-- ROUTER -->
-    <script src="../router.js" defer></script>
-
-    <!-- MINIMALIST BLACK & WHITE STYLE -->
     <style>
         body {
             background:#fff;
@@ -29,36 +17,73 @@
         }
         #identity-container {
             width:100%;
-            height:100vh;
+            max-width:760px;
+            min-height:100vh;
+            margin:0 auto;
+            padding:32px 24px;
             display:flex;
-            align-items:center;
             justify-content:center;
             flex-direction:column;
+            gap:20px;
+            line-height:1.6;
         }
         .symbol {
             font-size:6rem;
             font-weight:bold;
             letter-spacing:-4px;
-            cursor:pointer;
-            transition:0.2s ease;
-        }
-        .symbol:hover {
-            transform:scale(1.08);
         }
         .subtext {
-            margin-top:20px;
             font-size:1.2rem;
-            opacity:0.7;
+        }
+        h1 {
+            font-size:1.8rem;
+        }
+        h2 {
+            font-size:1.2rem;
+            margin-bottom:8px;
+        }
+        ul {
+            padding-left:24px;
+        }
+        a {
+            color:inherit;
         }
     </style>
 </head>
 
 <body>
 
-<div id="identity-container">
-    <div class="symbol">+U</div>
-    <div class="subtext">Unified Identity Engine</div>
-</div>
+<main id="identity-container">
+    <div class="symbol" aria-hidden="true">+U</div>
+    <h1>Whole Donuts Entry</h1>
+    <p class="subtext">Static pages and design specifications, not an end-to-end operational service.</p>
+
+    <section aria-labelledby="available-heading">
+        <h2 id="available-heading">Available to browse</h2>
+        <ul>
+            <li><a href="../index.html">Whole Donuts homepage</a></li>
+            <li><a href="../emotional-periodic-table.html">Emotional periodic table</a></li>
+            <li><a href="../Whole-Donuts-main/Whole-Donuts-main/OS/crumb-saver.md">Crumb Saver specification</a></li>
+        </ul>
+    </section>
+
+    <section aria-labelledby="inactive-heading">
+        <h2 id="inactive-heading">Not operational here</h2>
+        <p>Protocol, movement, and routing engines are not connected to this entry.
+        Crumb Saver, Vault, Pipe, and Loop are specifications only: no personal submissions,
+        user-data ingestion, automated storage, or processing is enabled here.</p>
+        <p>Rewards code exists in the bundled merch source, but it is not a deployed or configured
+        rewards service. No rewards, payment, or store-provider integration is activated by this page.</p>
+    </section>
+
+    <section aria-labelledby="safety-heading">
+        <h2 id="safety-heading">Bathroom Door safety boundary</h2>
+        <p>The intake/routing design is metadata-only. Only verified and approved material
+        may advance. Unknown content stays blocked or archived and must not be executed,
+        published, or routed onward. This page does not accept submissions.</p>
+        <p><a href="../Whole-Donuts-main/Whole-Donuts-main/OS/crumb-code.md">Read the safety boundary and implementation limits</a>.</p>
+    </section>
+</main>
 
 </body>
 </html>

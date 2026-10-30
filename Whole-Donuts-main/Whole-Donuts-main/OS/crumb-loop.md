@@ -1,5 +1,8 @@
 # CRUMB LOOP (CL-∞)
 
+**Specification only, not a deployed service.** The cycle and outputs below are
+design goals, not running behavior. See the [Bathroom Door safety boundary](crumb-code.md#bathroom-door-safety-boundary).
+
 The Crumb Loop is the circulation engine of the Crumb Saver.
 It keeps crumbs moving, resurfacing, evolving, and transforming forever.
 
@@ -65,4 +68,5 @@ Crumb (or its evolved form) returns to the Vault for future resurfacing.
 - New ecosystem expansions
 
 ## Status
-Crumb Loop is active.
+Crumb Loop is not operational. No background loop, automatic resurfacing,
+publication, deployment, donor flow, or rewards service runs from this specification.
