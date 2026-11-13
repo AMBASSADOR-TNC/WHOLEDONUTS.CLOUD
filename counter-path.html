@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Road to The Counter | Whole Donuts</title>
+  <link rel="stylesheet" href="pages/style.css">
+  <link rel="stylesheet" href="pages/access.css">
+  
+  <link rel="icon" href="pages/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <main id="engine">
+    <header class="engine-header">
+      <h1>Road to The Counter</h1>
+      <p>The Counter is rougher and more real: life skills, real work, real people. You earn your way there by showing growth. The owner reads every request and sends the invitation.</p>
+    </header>
+
+    <form id="counterPathForm" novalidate>
+      <section class="engine-step">
+        <h2>How will you show your growth?</h2>
+        <p>Every way counts the same. Pick what works for you.</p>
+        <fieldset>
+          <legend class="visually-hidden">How will you show your growth?</legend>
+          <label><input type="radio" name="showMode" value="write" checked> I'll write it here (typing or voice typing)</label>
+          <label><input type="radio" name="showMode" value="other"> I'll show it another way</label>
+        </fieldset>
+        <div id="otherWays" hidden>
+          <label for="otherWay">Which way?</label>
+          <select id="otherWay">
+            <option value="">Choose one</option>
+            <option>Speaking (voice recording or a call)</option>
+            <option>Video</option>
+            <option>Sign language video</option>
+            <option>Drawing, photos, or something I made</option>
+            <option>In person</option>
+            <option>A helper writes it down with me</option>
+          </select>
+          <p>Write as little or as much as you like below. Your adult helps send the rest.</p>
+        </div>
+      </section>
+
+      <section class="engine-step">
+        <h2>1. Principles I understand</h2>
+        <p>Which Whole Donuts principles do you understand now, and what did each one change for you? Use your own words.</p>
+        <label for="principles">Principles I understand</label>
+        <textarea id="principles" rows="5"></textarea>
+      </section>
+
+      <section class="engine-step">
+        <h2>2. Effort I kept up</h2>
+        <p>What did you keep doing, for how long, and what was hard about it? Showing up counts more than being perfect.</p>
+        <label for="effort">Effort I kept up</label>
+        <textarea id="effort" rows="5"></textarea>
+      </section>
+
+      <section class="engine-step">
+        <h2>3. What I shared</h2>
+        <p>What did you pass forward: a skill, a resource, help, a kind word? Who did it help? No names needed.</p>
+        <label for="sharing">What I shared</label>
+        <textarea id="sharing" rows="5"></textarea>
+      </section>
+
+      <section class="engine-step">
+        <h2>4. About you</h2>
+        <div class="grad-input">
+          <label for="pathGradYear">High school graduation year</label>
+          <input type="number" id="pathGradYear" inputmode="numeric" placeholder="YYYY">
+        </div>
+        <div class="grad-input">
+          <label for="adultRole">An adult who knows your effort (role only, like parent, coach, teacher)</label>
+          <input type="text" id="adultRole" autocomplete="off" maxlength="40">
+        </div>
+        <label class="confirmation">
+          <input type="checkbox" id="adultKnows">
+          A parent, guardian, or mentor I trust has read this with me.
+        </label>
+      </section>
+
+      <button id="routeButton" type="submit">Build my request</button>
+    </form>
+
+    <p id="pathMessage" class="route-message" aria-live="polite"></p>
+    <label for="requestOutput" class="visually-hidden">Your request</label>
+    <textarea id="requestOutput" rows="16" readonly hidden></textarea>
+    <button id="copyRequest" type="button" hidden>Copy my request</button>
+    <p id="inboxNote" class="route-message"></p>
+
+    <footer class="engine-footer">
+      <p>This page does not save, send, or track anything. <a href="table.html">Back to The Table</a></p>
+    </footer>
+  </main>
+  <script src="pages/counter-path.js"></script>
+  <script src="pages/access.js"></script>
+</body>
+</html>
