@@ -9,7 +9,7 @@
   
   <link rel="icon" href="pages/favicon.svg" type="image/svg+xml">
 </head>
-<body>
+<body data-ghost="path">
   <main id="engine">
     <header class="engine-header">
       <h1>Road to The Counter</h1>
@@ -77,6 +77,7 @@
         </label>
       </section>
 
+      <div class="pause-note"><svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="42" fill="none" stroke="#b36b00" stroke-width="8"/><g fill="currentColor"><rect x="36" y="32" width="9" height="36" rx="2"/><rect x="55" y="32" width="9" height="36" rx="2"/></g></svg><p><strong>Pause before you send.</strong> Rethink it, or stop and take the night. Your road will still be here tomorrow.</p></div>
       <button id="routeButton" type="submit">Build my request</button>
     </form>
 
@@ -92,5 +93,6 @@
   </main>
   <script src="pages/counter-path.js"></script>
   <script src="pages/access.js"></script>
+<script src="pages/ghost-layer.js"></script>
 </body>
 </html>

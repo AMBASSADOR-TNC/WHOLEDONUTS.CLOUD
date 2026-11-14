@@ -22,3 +22,25 @@ html.a11y-calm *, html.a11y-calm *::before, html.a11y-calm *::after { animation:
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 html.a11y-contrast .stick-figure, html.a11y-contrast .stick-figure * { background-color: transparent !important; }
 html.a11y-contrast .stick-figure .arms, html.a11y-contrast .stick-figure .leg-left, html.a11y-contrast .stick-figure .leg-right { background-color: #fff !important; }
+
+/* ===== Ghosted reminders (behind every page, never over content) ===== */
+.ghost-layer { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; color: #000; }
+.ghost-item { position: absolute; width: clamp(56px, 9vw, 110px); height: auto; opacity: 0.07; animation: ghost-drift 24s ease-in-out infinite alternate; }
+.ghost-item[class*="ghost-no-"], .ghost-pause { opacity: 0.11; }
+.ghost-loop { width: clamp(120px, 22vw, 260px); opacity: 0.05; transform: translateX(-50%); }
+@keyframes ghost-drift { from { translate: 0 0; rotate: -3deg; } to { translate: 0 -18px; rotate: 3deg; } }
+html.a11y-contrast .ghost-layer { display: none; }
+@media (forced-colors: active) { .ghost-layer { display: none; } }
+@media print { .ghost-layer { display: none; } }
+
+/* ===== The promise: three signs, shown plainly ===== */
+.promise { text-align: center; max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.promise-signs { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; list-style: none; padding: 0; margin: 1rem 0; }
+.promise-signs li { width: 150px; }
+.promise-signs svg { width: 84px; height: 84px; display: block; margin: 0 auto 0.4rem; color: #000; }
+.promise-signs strong { display: block; font-size: 1.1rem; }
+.who-for { max-width: 62ch; margin: 1rem auto 0; }
+.the-difference { font-size: 1.4rem; font-weight: 700; margin-top: 1rem; }
+.pause-note { display: flex; gap: 0.75rem; align-items: center; border: 2px solid #b36b00; border-radius: 10px; padding: 0.75rem 1rem; margin: 1rem 0; }
+.pause-note svg { width: 48px; height: 48px; flex: none; color: #000; }
+html.a11y-contrast .promise-signs svg, html.a11y-contrast .pause-note svg { color: #fff; }
