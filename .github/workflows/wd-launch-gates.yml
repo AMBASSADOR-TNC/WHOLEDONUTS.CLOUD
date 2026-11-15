@@ -1,0 +1,81 @@
+name: WD Launch Gates
+
+# PROTO T BLAST, Stage Six: full validation, then one release gate.
+# Read-only. It changes nothing, publishes nothing and never touches DNS.
+# Green "WD RELEASE GATE" = ready for human review and merge. Red = stop.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structure:
+    name: Structure and manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Required current pages are present
+        run: |
+          for f in index.html table.html counter.html counter-path.html store.html movement.html \
+                   foundation.html emotional-periodic-table.html CNAME entry/js/identity-engine.js; do
+            test -f "$f" || { echo "MISSING: $f"; exit 1; }
+          done
+          test "$(tr -d '[:space:]' < CNAME)" = "wholedonuts.cloud" || { echo "CNAME changed"; exit 1; }
+          echo "All required current pages present"
+      - name: Bathroom Door manifests parse
+        run: find .bathroom-door -name '*.json' -print0 | xargs -0 -n1 python3 -m json.tool > /dev/null && echo ok
+
+  routing:
+    name: Routing and browser-behavior tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Entry, Road to The Counter, access, ghost layer, archive plan
+        run: |
+          node tools/wd-protocol/triage.mjs --check
+          node --test entry/tests/*.test.js tools/wd-protocol/triage.test.mjs
+      - name: Page scripts parse
+        run: for f in entry/js/*.js pages/*.js; do node --check "$f"; done; echo ok
+
+  privacy:
+    name: Nothing private in the repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan tracked files for keys, tokens and passwords
+        run: |
+          pat='ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|sk_live_[A-Za-z0-9]{10,}|rk_live_[A-Za-z0-9]{10,}|sk-[A-Za-z0-9]{32,}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|-----BEGIN [A-Z ]*PRIVATE KEY|xox[bpa]-[0-9A-Za-z-]{10,}'
+          if git grep -I -n -E "$pat" -- . ':!.github/workflows/wd-launch-gates.yml'; then echo "Secret-like text found. Stop."; exit 1; fi
+          if git ls-files | grep -i -E '(\.pem|\.key|\.p12|\.pfx|\.kdbx|\.env|id_rsa|recovery.?codes|backup.?codes)$'; then echo "Key file tracked. Stop."; exit 1; fi
+          echo "No credentials found"
+
+  rollback:
+    name: Rollback is available
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record last known good main
+        run: |
+          git fetch -q origin main
+          good=$(git rev-parse origin/main)
+          echo "Last known good main: $good"
+          echo "### Rollback point: \`$good\`" >> "$GITHUB_STEP_SUMMARY"
+
+  release-gate:
+    name: WD RELEASE GATE
+    needs: [structure, routing, privacy, rollback]
+    runs-on: ubuntu-latest
+    steps:
+      - name: All gates green
+        run: |
+          echo "WD RELEASE GATE: GREEN"
+          echo "Next: human review, then merge. Porkbun stays last."
+          echo "## WD RELEASE GATE: GREEN" >> "$GITHUB_STEP_SUMMARY"
