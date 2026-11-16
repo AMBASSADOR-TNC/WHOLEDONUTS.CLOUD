@@ -1,0 +1,46 @@
+/* ===== Access for all abilities ===== */
+.skip-link { position: absolute; left: -9999px; top: 0; padding: 12px 16px; background: #000; color: #fff; z-index: 1000; }
+.skip-link:focus { position: fixed; left: 8px; bottom: 8px; top: auto; }
+.access-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 8px; }
+.access-bar button { min-height: 44px; min-width: 44px; padding: 8px 14px; font-size: 1rem; border-radius: 22px; border: 2px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
+.access-bar button[aria-pressed="true"] { background: #1a1a1a; color: #fff; }
+button, input, select, textarea, a { min-height: 44px; }
+textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 1rem; padding: 10px; }
+label { display: block; font-weight: 600; margin: 8px 0 4px; }
+:focus-visible { outline: 3px solid #005fcc; outline-offset: 3px; }
+html.a11y-big { font-size: 125%; }
+html.a11y-big body { font-size: 1.25rem; }
+html.a11y-contrast, html.a11y-contrast *:not(.skip-link) { background-color: #000 !important; background-image: none !important; color: #fff !important; border-color: #fff !important; text-shadow: none !important; }
+html.a11y-contrast a:not(.skip-link) { color: #ffeb3b !important; text-decoration: underline; }
+html.a11y-contrast button, html.a11y-contrast input, html.a11y-contrast textarea { background: #000 !important; color: #fff !important; border: 2px solid #fff !important; }
+html.a11y-contrast .selected, html.a11y-contrast [aria-pressed="true"] { outline: 4px solid #ffeb3b !important; }
+html.a11y-spacing body { line-height: 1.8; letter-spacing: 0.06em; word-spacing: 0.16em; }
+html.a11y-spacing p { max-width: 60ch; }
+html.a11y-calm *, html.a11y-calm *::before, html.a11y-calm *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+@media (forced-colors: active) { .figure-card.selected, .emotion-card.selected, [aria-pressed="true"] { outline: 3px solid Highlight; } }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+html.a11y-contrast .stick-figure, html.a11y-contrast .stick-figure * { background-color: transparent !important; }
+html.a11y-contrast .stick-figure .arms, html.a11y-contrast .stick-figure .leg-left, html.a11y-contrast .stick-figure .leg-right { background-color: #fff !important; }
+
+/* ===== Ghosted reminders (behind every page, never over content) ===== */
+.ghost-layer { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; color: #000; }
+.ghost-item { position: absolute; width: clamp(56px, 9vw, 110px); height: auto; opacity: 0.07; animation: ghost-drift 24s ease-in-out infinite alternate; }
+.ghost-item[class*="ghost-no-"], .ghost-pause { opacity: 0.11; }
+.ghost-loop { width: clamp(120px, 22vw, 260px); opacity: 0.05; transform: translateX(-50%); }
+@keyframes ghost-drift { from { translate: 0 0; rotate: -3deg; } to { translate: 0 -18px; rotate: 3deg; } }
+html.a11y-contrast .ghost-layer { display: none; }
+@media (forced-colors: active) { .ghost-layer { display: none; } }
+@media print { .ghost-layer { display: none; } }
+
+/* ===== The promise: three signs, shown plainly ===== */
+.promise { text-align: center; max-width: 800px; margin: 0 auto; padding: 0 20px; }
+.promise-signs { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; list-style: none; padding: 0; margin: 1rem 0; }
+.promise-signs li { width: 150px; }
+.promise-signs svg { width: 84px; height: 84px; display: block; margin: 0 auto 0.4rem; color: #000; }
+.promise-signs strong { display: block; font-size: 1.1rem; }
+.who-for { max-width: 62ch; margin: 1rem auto 0; }
+.the-difference { font-size: 1.4rem; font-weight: 700; margin-top: 1rem; }
+.pause-note { display: flex; gap: 0.75rem; align-items: center; border: 2px solid #b36b00; border-radius: 10px; padding: 0.75rem 1rem; margin: 1rem 0; }
+.pause-note svg { width: 48px; height: 48px; flex: none; color: #000; }
+html.a11y-contrast .promise-signs svg, html.a11y-contrast .pause-note svg { color: #fff; }

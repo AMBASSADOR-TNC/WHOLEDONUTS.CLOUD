@@ -82,4 +82,4 @@ jobs:
           node --check pages/local-journey.js
           node --check pages/motion.js
       - name: Verify entry and blocker archival
-        run: node --test entry/tests/identity-engine.test.js tools/wd-protocol/triage.test.mjs
+        run: node --test entry/tests/identity-engine.test.js tools/wd-protocol/triage.test.mjs entry/tests/access-road.test.js
